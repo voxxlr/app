@@ -1,0 +1,116 @@
+openapi: 3.0.1
+paths:
+
+  /list:
+    post:
+      tags:
+      - "document"
+      summary: List all documents accessible via the given Api Key
+      requestBody:
+        description: Query Parameters in Json object
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:          
+                  type: string
+                  enum: [cloud,model,panorama,map]
+                tags:          
+                  type: string
+                meta:          
+                  type: string
+                limit:          
+                  type: integer
+                cursor:          
+                  type: string
+                offset:          
+                  type: integer
+            examples:       
+              A:         
+                value: { type: "cloud", tags: ["gallery"] }
+                summary: All point clouds tagged "gallery"
+              B: 
+                value: { meta: ["name","preview"], token: 36000 }
+                summary: Name, preview image and access token
+              C: 
+                value: { limit: 5, cursor: null }
+                summary: Pagination. New cursor will be in response
+      responses:
+        200:
+          description: 
+
+  /load/{id}:
+    post:
+      tags:
+      - "document"
+      summary: Load the document root data required to initialize voxxlr viewer
+      parameters:
+        - name: id
+          in: path
+          description: document id
+          required: true
+          schema: {}
+      requestBody:
+        description: Query Parameters in Json object
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                meta:          
+                  type: string
+            examples:       
+              A:         
+                value: { meta: ["preview", "description"] }
+                summary: Including preview image and description
+      responses:
+        200:
+          description: 
+
+  /token/{id}:
+    get:
+      tags:
+      - "document"
+      summary: Get only an access token for a document. Tokens are required for calls to doc.voxxl.com 
+      parameters:
+        - name: id
+          in: path
+          description: document id
+          required: true
+          schema: {}
+      responses:
+        200:
+          description: 
+
+
+  /upload/initiate:
+    get:
+      tags:
+      - "upload"
+      summary:  
+      responses:
+        200:
+          description: 
+
+  /upload/file:
+    post:
+      tags:
+      - "upload"
+      summary:  
+      responses:
+        200:
+          description: 
+
+  /upload/finalize:
+    post:
+      tags:
+      - "upload"
+      summary:  
+      responses:
+        200:
+          description: 
+
+components: {}

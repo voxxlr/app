@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="shortcut icon" href="https://voxxlr.github.io/www/favicon.ico" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+
+    <script src="https://voxxlr.github.io/app/ui.js"></script>
+ 
+    <script>
+        
+        window.addEventListener("load", function( event ) 
+        {
+              /*
+                       var pdf = new window.jspdf.jsPDF();;
+            pdf.setFontSize(40);
+           pdf.text(30, 20, this.dom.querySelector("input").value);
+            pdf.output('datauri');
+            pdf.addImage(imgData, 'JPEG', 15, 40, 180, 160);
+            blob = doc.output('blob');
+            formData.append('rfi[question[attachments[1]]]',  new File([blob], `${this.getAttribute("id")}.pdf`, { type: 'application/pdf' })); 		    
+            
+            /*
+            document.querySelector("ui-range").addEventListener('change', event=>
+            {
+                minH = viewer.document.root.min[1];			
+                maxH = viewer.document.root.max[1];			
+                
+                let clipPlanes = new Float32Array(4*2);  // 2 clip planes
+                clipPlanes.fill(0);
+                
+                if (event.detail.min > 0.0)
+                {
+                    clipPlanes[1] = 1;
+                    clipPlanes[3] = minH + event.detail.min*(maxH - minH);
+                }
+                
+                if (event.detail.max < 1.0)
+                {
+                    clipPlanes[5] = -1;
+                    clipPlanes[7] = -(minH + event.detail.max*(maxH - minH));
+                }
+                
+                viewer.post("cloud.shader.update", { id: viewer.document.id, clipPlanes: Array.from(clipPlanes) });
+            })
+            */
+        });
+        
+        
+    </script>
+    
+    <style>
+        
+        body { overflow: hidden; height:100vh; width: 100vw; user-select: none; margin: 0;}
+        
+        header
+        {
+            position: absolute; 
+            top: 0px; 
+            left: 10px; 
+            right: 10px; 
+            height: 40px; 
+            display: flex;
+            flex-direction:row;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: solid 1px var(--border);
+        }
+        
+        #status
+        {
+            margin-left: 6em;
+            font-style: italic;
+        }	
+        
+        main
+        {
+            position: absolute; 
+            top: 0px; 
+            left: 0px; 
+            right: 0px; 
+            bottom: 0px;
+        }
+           
+        .range-container
+        {
+            position: relative;
+            background-color: #ffffffaa;
+            border-radius: 30px;
+            width: 60px;
+            height: 100%;
+            box-sizing: border-box;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            float: right;
+        }
+        
+        ui-range
+        {
+            width: 100%;
+            height: 100%;
+            margin-left: -4px;
+        }
+
+                
+        .hierarchy
+        {
+            position: absolute;
+            background-color: #eeeeeeaa;
+            border-radius: 10px;
+            right: 0;
+            top: 0;
+            bottom: 250px;			
+            box-sizing: border-box;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            transition: width 400ms;
+        }
+        .hierarchy.open { width: auto; }
+        .hierarchy.close { width: 0px; }
+        
+        ui-toggle[right]  { left: -4em; top: 50%; z-index: 99; }
+
+        #dropdown ui-dropdown-select
+        {
+            width:300px;
+        }
+        
+        #input ui-tag-list
+        {
+            display:inline-flex;
+            flex-wrap: wrap;
+            width: 180px;
+        }
+        
+        #input1 ui-tag-list
+        {
+            display:inline-flex;
+        }
+        
+        #input ui-tag-input
+        {
+            margin-bottom: 0.5em;
+            width: 180px;
+        }
+        
+        #list ui-tag-list
+        {
+            display:inline-flex;
+            flex-direction: column;
+            width: 180px;
+        }
+        
+
+        #multi ui-option-list
+        {
+            width: 180px;
+            max-height: 280px;
+        }
+        
+        img
+        {
+            position: absolute;
+            left: 20%;
+            top: 40%;
+            height: 50%;
+            border: 4px;
+        }
+        
+        ui-menu
+        {
+            position: absolute;
+            left: 10%;
+            top: 20%;
+        }
+        
+        #ui-list
+        {
+            position: absolute;
+            left: 50%;
+            top: 20%;
+        }
+        
+        #ui-collapsible
+        {
+            position: absolute;
+            right: 5%;
+            top: 40%;
+            width: 300px;
+        }
+        
+        
+        ui-slider[vert] 
+        {
+            position: absolute;
+            left: 1em;
+            top: 17em;
+            height: 12em; 
+        }
+        
+        ui-slider[horz] 
+        {
+            position: absolute;
+            left: 1em;
+            top: 13em;
+            width: 12em; 
+        }
+        
+        ui-checkbox
+        {
+            position: absolute;
+            left: 300px;
+            top: 300px;
+            font-size: 3em;
+            background-color: orange;
+        }
+        
+        
+
+    </style>
+        
+</head>
+
+<body>
+    
+    <main>
+        
+            <ui-panel id="dropdown" name="Button bar">
+                <ui-button-group single>
+                    <button class="vx-primary">Aaaasdsd</button>
+                    <button class="vx-primary" active>Baasdsd</button>
+                    <button class="vx-primary">Caasdsd</button>
+                    <button class="vx-primary">Baasdsd</button>
+                </ui-button-group>
+            </ui-panel>
+            
+            <ui-panel id="dropdown" name="Assignee" required>
+                <ui-dropdown-select deletable>	
+                    <ui-option value="1">asdasdasd</ui-option>
+                    <ui-option value="2" selected>dsdasdasd</ui-option>
+                    <ui-option value="3">as23swr42</ui-option>
+                    <ui-option value="4">dasdasdyyyysdasd</ui-option>
+                </ui-dropdown-select>
+            </ui-panel>
+            
+            <ui-panel id="input" name="Tags Input" required>
+                <ui-tag-list tags="one,tow,three">
+                    <ui-tag-input  placeholder="tags..." type="text" ></ui-tag-input>
+                </ui-tag-list>
+            </ui-panel>
+            
+            <ui-panel id="input1" name="Tags Input" required>
+                <ui-tag-list tags="one,tow,three">
+                    <ui-tag-input  placeholder="tags..." type="text" ></ui-tag-input>
+                </ui-tag-list>
+            </ui-panel>
+        
+            <ui-panel id="multi" name="Option List" required>
+                <ui-option-list>
+                    <ui-dropdown-select  placeholder="select...">	
+                        <ui-option value="asd">asd</ui-option>
+                        <ui-option value="sd">sd</ui-option>
+                        <ui-option value="sdas">sdas</ui-option>
+                        <ui-option value="sddd">sddd</ui-option>
+                    </ui-dropdown-select>
+                </ui-option-list>
+            </ui-panel>
+
+            <ui-list id="ui-list">
+                <div>asdasd<button>asdasd</button><input type="checkbox"></div>
+                <div selected>asdas1</div>
+                <div>asdas2</div>
+                <div>asdas3</div>
+            </ui-list>
+            
+            <ui-menu>
+                <div slot="title">asdasdasdad asdas asd</div>
+                <a>Aaaasdsd</a>
+                <a active>Baasdsd</a>
+                <a>Caasdsd</a>
+                <a>Baasdsd</a>
+            </ui-menu>
+
+
+            <ui-checkbox>
+            </ui-checkbox>
+
+            
+            <div id="ui-collapsible">	 		
+                <ui-collapsible  label="11 asdas1 1">
+                    <span>Aaaasdsd</span><br>
+                    <span>Aaaasdsd</span><br>
+                    <span>Aaaasdsd</span><br>
+                    <span>Aaaasdsd</span><br>
+                    <span>Aaaasdsd</span><br>
+                    <span>Aaaasdsd</span><br>
+                    <span>Aaaasdsd</span>
+                </ui-collapsible>
+                <ui-collapsible  label="11 asdas1 1">
+                    <span>Aaaasdsd</span><br>
+                    <span>Aaaasdsd</span><br>
+                    <span>Aaaasdsd</span><br>
+                    <span>Aaaasdsd</span><br>
+                    <span>Aaaasdsd</span><br>
+                    <span>Aaaasdsd</span><br>
+                    <span>Aaaasdsd</span>
+                </ui-collapsible>
+                <ui-collapsible  label="11 asdas1 1">
+                    <span>Aaaasdsd</span><br>
+                    <span>Aaaasdsd</span><br>
+                    <span>Aaaasdsd</span><br>
+                </ui-collapsible>
+                <ui-collapsible  label="11 asdas1 1">
+                    <span>Aaaasdsd</span><br>
+                    <span>Aaaasdsd</span><br>
+                </ui-collapsible>
+            </div>	 		
+
+<!-- 			
+            <ui-list id="ui-collapsible">	 		
+                <ui-collapsible>
+                    <span slot="title">11 asdas1 1</span>
+                    <p>Aaaasdsd</p>
+                </ui-collapsible>
+                <ui-collapsible>
+                    <span slot="title">asd asdas asd</span>
+                    <p>Aaaasdsd</p>
+                    <p>Aaaasdsd</p>
+                </ui-collapsible>
+                <ui-collapsible>
+                    <span slot="title">1112 sss asd</span>
+                    <p>Aaaasdsd</p>
+                    <p>Aaaasdsd</p>
+                    <p>Aaaasdsd</p>
+                </ui-collapsible>
+            </ui-list>	 		
+-->
+            
+            <ui-slider horz mouseout></ui-slider>
+            <ui-slider vert mouseout></ui-slider>
+     </main>
+</body>
+
+
+</html>

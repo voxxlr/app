@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Inventory</title>
+    <link rel="shortcut icon" href="https://voxxlr.github.io/www/favicon.ico" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+     
+    <!-- ui only component -->
+    <script src="https://voxxlr.github.io/app/ui.js"></script>
+    <script src="https://voxxlr.github.io/app/vx-viewer.js"></script>
+    <script src="https://voxxlr.github.io/app/vx-file.js"></script>
+     
+    <script src="https://voxxlr.github.io/app/voxxlr/inventory/va-token.js"></script>
+    <script src="https://voxxlr.github.io/app/voxxlr/inventory/va-documents.js"></script>
+    <script src="https://voxxlr.github.io/app/voxxlr/inventory/va-map.js"></script>
+    <script src="https://voxxlr.github.io/app/voxxlr/inventory/va-attributes.js"></script>
+    
+
+    <style>
+    
+        body 
+        { 
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            user-select: none;
+            margin: 1em;
+            padding: 0;
+            display: grid;
+            grid-gap: 1em;
+            grid-template-columns: 40em auto;
+            grid-template-rows: auto 26em;
+        }
+        
+        #documents 
+        {
+            grid-row-start: 1;
+            grid-column-start: 1;
+            grid-row-end: 3;
+        }
+        
+        #location 
+        {
+            grid-row-start: 1;
+            grid-column-start: 2;
+        }
+        
+        #about 
+        {
+            grid-row-start: 2;
+            grid-column-start: 2;
+        }
+        
+        va-map { flex: 1; overflow: hidden; }
+        va-attributes { flex: 1; overflow: hidden; }
+    
+        
+    </style>  
+     
+    <script>
+    
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        
+        window.addEventListener("load", async function(event) 
+        {
+            let map = document.querySelector("va-map");
+            let attr = document.querySelector("va-attributes");
+            let list = document.querySelector("va-documents");
+            
+            list.addEventListener("item-select", (event)=>
+            {
+                map.select(event.detail)
+                map.parentElement.toggleAttribute("disabled", false);
+
+                attr.select(event.detail)
+                attr.parentElement.toggleAttribute("disabled", false);
+                
+                window.parent.postMessage({ action: "dataset-load", dataset: event.detail.content }, "*");
+            });
+        
+            list.addEventListener("item-unselect", (event)=>
+            {
+                map.unselect(event.detail)
+                map.parentElement.toggleAttribute("disabled", true);
+                
+                attr.unselect(event.detail)
+                attr.parentElement.toggleAttribute("disabled", true);
+            });
+            
+            list.addEventListener("load-datasets", (event)=>
+            {
+                map.add(JSON.parse(event.detail))
+            });
+            
+            list.addEventListener("clear-datasets", (event)=>
+            {
+                map.clear();
+            });
+            
+            attr.addEventListener("delete-dataset", (event)=>
+            {
+                map.unselect(event.detail)
+                map.parentElement.toggleAttribute("disabled", true);
+                
+                attr.unselect(event.detail)
+                attr.parentElement.toggleAttribute("disabled", true);
+            });
+            attr.addEventListener("update-dataset", (event)=>
+            {
+                list.update(event.detail)
+            });
+        });
+    
+    </script>
+      
+</head>
+
+<body>
+    <ui-section id="documents" label="Documents">
+        <va-documents key="{{{key}}}"></va-documents> 
+    </ui-section>
+    <ui-section id="location" label="Location" disabled>
+        <va-map key="{{{key}}}"></va-map> 
+    </ui-section>
+    <ui-section id="about" label="About" disabled>
+        <va-attributes key="{{{key}}}"></va-attributes> 
+    </ui-section>
+</body>
+
+
+</html>

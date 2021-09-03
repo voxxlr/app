@@ -1,0 +1,101 @@
+<html>
+    <head>    
+        <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3/swagger-ui.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.38.0/swagger-ui-bundle.js" charset="UTF-8"></script>
+        
+        <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+        
+        
+        <script>
+        window.addEventListener("load", function(event) 
+        {
+            var doc = SwaggerUIBundle(
+            {
+                dom_id: '#swagger',
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIBundle.SwaggerUIStandalonePreset
+                ],
+                requestInterceptor: (req) => 
+                {
+                    req.headers.Authorization = `Bearer ${document.querySelector("input").value}`;
+                    return req;
+                }
+            });
+            
+            fetch(`https://voxxlr.github.io/app/rest.yaml`).then(async (response) =>
+            {
+                if (response.ok)
+                {
+                    doc.specActions.updateSpec(await response.text());
+                }
+            });
+            
+            document.querySelector("input").value = "{{{key}}}";
+       });
+            
+        </script>
+        
+    </head>
+    
+    <style>
+        
+        body
+        {
+            position: relative;
+        }
+    
+        header 
+        {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            width: 100%;
+            max-width: 1460px;
+            margin: 0 auto;
+            padding: 0 20px 20px 20px;
+            box-sizing: border-box;
+        }
+        
+        header > div:nth-of-type(1)
+        {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            width: 20em;
+        }
+        
+        header input
+        {
+            padding: 0.5em;
+        }
+        
+        header > div:nth-of-type(2)
+        {
+            position: relative;
+            flex:1;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+    
+    </style>
+
+    <body>
+        <header>
+            <div>
+                <input></input>
+            </div>
+            <div>
+                <p>An Api key must be used as the Bearer token in the REST calls described below. A key specifies a subset of the datasets in an account and limits the types of operations which can be performed. 
+                Login to your account at www.voxxlr.com to create API keys for your data sets. </p>
+            </div>
+        </header>    
+        <div id="swagger">
+        </div>
+    </body>
+    
+    
+</html>

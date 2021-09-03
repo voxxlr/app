@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Upload</title>
+    <link rel="shortcut icon" href="https://voxxlr.github.io/www/favicon.ico" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+     
+    <script src="https://voxxlr.github.io/app/ui.js"></script>
+    <script src="https://voxxlr.github.io/app/vx-upload.js"></script>
+    
+    <script src="https://voxxlr.github.io/app/voxxlr/upload/va-upload.js"></script>
+    
+    <style>
+    
+        body 
+        { 
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding-top: 20px;
+        }
+        
+        body > div
+        {
+            display: inline-grid;
+            grid-gap: 40px 40px;
+            grid-template-columns: 20em 55em;
+        }
+
+        ui-section:nth-of-type(1) 
+        {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        ui-section:nth-of-type(2) 
+        {
+            height: 50em;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ui-section:nth-of-type(2) > div
+        {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            margin-bottom: 4em;
+        }
+        
+        ui-tab { flex: 1 }
+        ui-tab > div {  margin-top: 2em; }
+        
+        va-dropzone 
+        {
+            width: 280px;
+            height: 210px;
+        }
+
+        nav { flex: 1 }
+        nav > button 
+        { 
+            margin-top: 100px;
+            height: 2em; 
+            font-size: 1.3em;
+            background: var(--primary);
+            color: white;		
+        }
+        
+        #notify
+        {
+            margin-top: auto;
+            display:flex;
+            align-items: center;
+        }
+        
+        #notify input[type="text"]
+        {
+            margin-left: 1em;
+            flex:1;
+            text-align: center;
+        }
+                
+        #processing
+        {
+            flex: 1;
+            margin-top: 9em;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            vertical-align: middle;
+            font-style: italic;
+            color: var(--primary);
+            justify-self: end;
+        }
+        #processing > span:nth-of-type(2)
+        {
+            padding-top: 0.4em;
+            font-size: 2em;
+            margin-bottom: 0.4em;
+        }
+
+        h4
+        {
+            background-color: var(--hover);
+            padding-left: 1em;
+            padding-top: 0.4em;
+            padding-bottom: 0.4em;
+            margin-left: -1em;
+            margin-top: -1em;
+            margin-right: -1em;
+        }
+        
+        va-info { height: 100%; }
+        
+    </style>  
+     
+    <script>
+    
+
+        document.addEventListener('contextmenu', event => event.preventDefault());
+    
+        function loadApp(meter)
+        {
+            document.querySelectorAll("nav div.item").forEach(button => button.addEventListener("click", event =>
+            {
+                let selected = document.querySelector("nav > div.selected");
+                if (selected)
+                {
+                    selected.classList.toggle("selected", false);
+                }
+                
+                event.currentTarget.classList.toggle("selected", true);
+                
+                let tab = document.querySelector("ui-tab");
+                let zone1 = document.getElementById("zone1");
+                let zone2 = document.getElementById("zone2");
+                let upload = document.querySelector("button");
+
+                upload.disabled = true;
+
+                zone1.reset();
+                zone2.reset();
+                zone1.setAttribute("class", "waiting");
+                zone2.setAttribute("class", "waiting");
+
+                switch (event.currentTarget.id)
+                {
+                    case "cloud":
+                        //title.textContent = "Upload Point Cloud";
+                        tab.setAttribute("tabs", "info,resolution,coordinate,units");
+                        zone1.hidden = false;
+                        zone1.setAttribute("title", "Point Cloud");
+                        zone1.setAttribute("ext", "e57,las,laz,pts,ply");
+                        zone2.hidden = true;
+                    break;
+                    case "model":
+                        //title.textContent = "Upload 3D Model";
+                        tab.setAttribute("tabs", "info,coordinate,units");
+                        zone1.hidden = false;
+                        zone1.setAttribute("title", "Single file or directory tree");
+                        zone1.setAttribute("ext", "ifc,gltf,bin,jpg,bmp,gif,jpeg,png");
+                        zone2.hidden = true;
+                    break;
+                    case "map":
+                        //title.textContent = "Upload Map";
+                        tab.setAttribute("tabs", "info");
+                        zone1.hidden = false;
+                        zone1.setAttribute("title", "Color map in UTM format");
+                        zone1.setAttribute("ext", "tif,tiff");
+                        zone1.toggleAttribute("multi", false);
+                        zone2.hidden = false;
+                        zone2.setAttribute("title", "Elevation map in UTM format");
+                        zone2.setAttribute("ext", "tif,tiff");
+                    break;
+                    case "panorama":
+                        //title.textContent = "Upload Point Cloud";
+                        tab.setAttribute("tabs", "info");
+                        zone1.hidden = false;
+                        zone1.setAttribute("title", "Equirectangular 360 Image");
+                        zone1.setAttribute("ext", "jpg,jpeg");
+                        zone2.hidden = true;
+                    break;
+                    
+                    case "pix4d":
+                        //title.textContent = "Upload Point Cloud";
+                        tab.setAttribute("tabs", "info");
+                        zone1.hidden = false;
+                        zone1.setAttribute("title", "Pix4d Processed Data");
+                        zone1.setAttribute("ext", "jpg,jpeg,txt,las,xyz");
+                        zone2.hidden = true;
+                    break;
+                    
+                }
+                
+                //document.querySelector(div.dataset.target).classList.toggle("hidden", false);
+            }));
+            
+            
+            document.querySelectorAll("va-dropzone").forEach(zone =>
+            {
+                zone.addEventListener("selected", event=>
+                {
+                    let div = document.querySelector("nav > div.selected");
+                    let zone1 = document.getElementById("zone1");
+                    let zone2 = document.getElementById("zone2");
+                    let message = document.querySelector("#message > p");
+                    let upload = document.querySelector("button");
+ 
+                    upload.disabled = true;
+                    
+                    if (event.detail.length == 0) 
+                    {
+                        event.currentTarget.setAttribute("message", `Unsupported File format`);
+                        event.currentTarget.setAttribute("class", "error");
+                        return;
+                    }
+                    
+                    // compute size
+                    let storage = 0;
+                    event.detail.forEach(entry =>
+                    {
+                        storage += entry.file.size;
+                    });
+                    
+                    if (meter.storage_used + storage > meter.storage_max)
+                    {
+                        let required = (meter.storage_used + storage)/(1024*1024*1024);
+                        let max = (meter.storage_max)/(1024*1024*1024);
+                        event.currentTarget.setAttribute("message", `Unsufficient Storage <br> ${required.toFixed(2)} /${max.toFixed(2)} GB`);
+                        event.currentTarget.setAttribute("class", "error");
+                        return;
+                    }
+                    
+                    switch (div.id)
+                    {
+                        case "panorama":
+                        case "cloud":
+                            if (event.detail.length == 1)
+                            {
+                                zone1.setAttribute("message", `${event.detail[0].file.name}`);
+                                zone1.setAttribute("class", "ready");
+                                upload.disabled = false;							
+                            }
+                            else if (event.detail.length > 1) 
+                            {
+                                zone1.setAttribute("message", `Only one file allowed`);
+                                zone1.setAttribute("class", "error");
+                            }
+                        break;
+                        
+                        case "model":
+                            
+                            let count =  
+                            { 
+                                gltf : 0,
+                                ifc : 0,
+                                bin : 0
+                            }
+                            
+                            event.detail.forEach(file =>
+                            {
+                                if (file.ext == "gltf")
+                                {
+                                    count.gltf++;								
+                                }
+                                else if (file.ext == "bin")
+                                {
+                                    count.bin++;								
+                                }
+                                else if (file.ext == "ifc")
+                                {
+                                    count.ifc++;								
+                                }
+                            });
+                            
+                            for (p in count)
+                            {
+                                if (count[p] > 1)
+                                {
+                                    zone1.setAttribute("message", `Too many ${p} files (${count[p]}) `);
+                                    zone1.setAttribute("class", "error");
+                                    return;
+                                }
+                            }
+                    
+                            if (count.gltf == 1 && count.bin == 0)
+                            {
+                                zone1.setAttribute("message", `Missing .bin file`);
+                                zone1.setAttribute("class", "error");
+                            }
+                            else if  (count.bin == 1 && count.gltf == 0)
+                            {
+                                zone1.setAttribute("message", `Missing .gltf file`);
+                                zone1.setAttribute("class", "error");
+                            }
+                            else if (count.gltf == 0 && count.ifc == 0)
+                            {
+                                zone1.setAttribute("message", `No .ifc or .gltf file`);
+                                zone1.setAttribute("class", "error");
+                            }
+                            else 
+                            {
+                                /*
+                                let message = "";
+                                for (var i=0; i<event.detail); i++)
+                                {
+                                    message += event.detail[i].path + "/" event.detail[i].name;
+                                }
+                                */
+                                if (event.detail.length > 1)
+                                {
+                                    zone1.setAttribute("message", `${event.detail.length} files`);
+                                }
+                                else
+                                {
+                                    zone1.setAttribute("message", `${event.detail[0].file.name}`);
+                                }
+                                
+                                zone1.setAttribute("class", "ready");
+                                upload.disabled = false;							
+                            }
+                        break;
+                        
+                        case "map":
+                            
+                            if (event.detail.length > 1)
+                            {
+                                event.currentTarget.setAttribute("message", `One file only`);
+                                event.currentTarget.setAttribute("class", "error");
+                            }
+                            else
+                            {
+                                event.currentTarget.setAttribute("class", "ready");
+                                event.currentTarget.setAttribute("message", `${event.detail[0].file.name}`);
+                                
+                                upload.disabled = !(zone1.files.length == 1 && zone2.files.length == 1);
+                            }
+                        break;
+                        
+                        case "pix4d":
+                            event.currentTarget.setAttribute("class", "ready");
+                            upload.disabled = false;
+                            break;
+                        
+                    }
+                    
+                });
+            })
+            
+            
+            document.querySelector("button").addEventListener("click", async (event) =>
+            {
+                document.querySelectorAll("nav div.item").forEach(button => button.classList.toggle("hidden", true));
+
+                let button = document.querySelector("button")
+                button.disabled = true;
+                button.toggleAttribute("active", true);
+
+                
+                let div = document.querySelector("nav > div.selected");
+                
+                let upload = new VxUpload("{{{key}}}");
+
+                let zone1 = document.getElementById("zone1");
+                let zone2 = document.getElementById("zone2");
+                let message = document.querySelector("#message > p");
+                
+                zone1.toggleAttribute("disabled", true);
+                if (!zone1.hidden)
+                {
+                    zone1.disabled = true;
+                    zone1.setAttribute("class", "uploading");
+                    
+                }
+                zone2.toggleAttribute("disabled", true);
+                if (!zone2.hidden)
+                {
+                    zone2.disabled = true;
+                    zone2.setAttribute("class", "uploading");
+                }
+
+                await upload.initiate();
+
+                if (!zone1.hidden)
+                {
+                    zone1.onStartUpload();
+                    for (var i=0; i<zone1.files.length; i++)
+                    {
+                        await upload.file(zone1.files[i].file, zone1.files[i].path, (p) => 
+                        {
+                            zone1.onProgress(p);
+                            document.title = `Voxxlr - Upload (${(p*100).toFixed(2)}%)`; 
+                        })
+                    }
+                }
+
+                if (!zone2.hidden)
+                {
+                    zone2.onStartUpload();
+                    for (var i=0; i<zone2.files.length; i++)
+                    {
+                        await upload.file(zone2.files[i].file, zone2.files[i].path, (p) => 
+                        {
+                            zone2.onProgress(p);
+                            document.title = `Voxxlr - Upload (${(p*100).toFixed(2)}%)`; 
+                        })
+                    }
+                }
+
+                let info = document.querySelector("va-info");
+                
+                let config = info.getConfig();
+                let meta = info.getMeta();
+                switch (div.id)
+                {
+                    case "cloud":
+                        document.querySelector("va-coordinates").get(config);
+                        document.querySelector("va-units").get(config);
+                        document.querySelector("va-resolution").get(config);
+                        document.querySelector("va-density").get(config);
+                    break;
+                    case "model":
+                        document.querySelector("va-coordinates").get(config);
+                        document.querySelector("va-units").get(config);
+                    break;
+                    case "map":
+                    break;
+                    case "panorama":
+                        break;
+                    case "pix4d":
+                        break;
+                }
+                
+                let notify = document.querySelector('#notify > input[type="text"]');
+                if (!notify.disabled)
+                {
+                    config.notify = notify.value;
+                }
+                
+                let meter = await upload.finalize(div.id, config, info.getTags(), meta);
+                
+                if (meter.processing.length === 4)
+                {
+                    document.querySelector("ui-modal").hidden = false;
+                    document.querySelector("ui-section:nth-of-type(2)").hidden = true;
+                }
+                
+                document.querySelector("va-processing").setAttribute("meter", JSON.stringify(meter));
+            
+                zone1.toggleAttribute("disabled", false);
+                zone2.toggleAttribute("disabled", false);
+                document.querySelectorAll("nav div.item").forEach(button => button.classList.toggle("hidden", false));
+                zone1.setAttribute("class", "waiting");
+                zone2.setAttribute("class", "waiting");
+                zone1.reset();
+                zone2.reset();
+                
+                button.toggleAttribute("active", false);
+
+                document.title = `Voxxlr - Upload (100%)`; 
+            });
+        
+            document.querySelector('#notify > input[type="checkbox"]').addEventListener("change", (event) =>
+            {
+                document.querySelector('#notify > input[type="text"]').disabled = !event.currentTarget.checked;
+            });			
+        }
+        
+        
+        window.addEventListener("load", async function( event ) 
+        {
+            let meter = JSON.parse('{{{meter}}}');
+            
+            {{#password}}
+            document.querySelector("ui-password").addEventListener("verified", event=>
+            {
+                loadApp(meter);
+            })
+            {{/password}}
+            
+            {{^password}}
+            loadApp(meter);
+            {{/password}}
+            
+            if (meter.processing.length === 4)
+            {
+                document.querySelector("ui-modal").hidden = false;
+                document.querySelector("ui-section:nth-of-type(2)").hidden = true;
+            }
+        
+            /*
+            function updateMeter(meter)
+            {
+                if (meter.processing.length)
+                {
+                    let processing = document.getElementById("processing");
+                    processing.hidden = false;
+                    processing.querySelector("span:nth-of-type(2)").textContent = `${meter.processing.length}/4`;
+                    
+                    if (meter.processing.length === 4)
+                    {
+                        document.querySelector("ui-modal").hidden = false;
+                        document.querySelector("ui-section:nth-of-type(2)").hidden = true;
+                    }
+                }
+            }
+            updateMeter(meter);
+            */
+        });
+    
+    </script>
+      
+</head>
+
+
+<body>
+    <div>
+        <ui-section label="Data Type">
+            <nav>
+                <div id="cloud" class="item  selected"><i class="fas fa-cloud"></i><span>Point Cloud</span></div>
+                <div id="map" class="item"><i class="fas fa-map"></i><span>Elevation Model</span></div>
+                <div id="model" class="item"><i class="fas fa-puzzle-piece"></i><span>Triangle Mesh</span></div>
+                <div id="panorama" class="item"><i class="fas fa-image"></i><span>360 Image</span></div>
+                {{#pix4d}}
+                <div id="pix4d" class="item"><i class="fas fa-flask"></i><span>Pix4d</span></div>
+                {{/pix4d}}
+                <button class="vx-primary" disabled>Start Upload</button>
+                <va-processing meter='{{{meter}}}'></va-processing>
+                <div id="notify">
+                    <input type="checkbox" checked></input><label>notify</label><input placeholder="email" type="text" value="{{{email}}}"></input>
+                </div>
+            </nav>
+        </ui-section>
+        
+        <ui-section label="Files">
+            <div>
+                <va-dropzone id="zone1" ext="e57,las,laz,pts,ply" class="waiting"></va-dropzone>		
+                <va-dropzone id="zone2" hidden class="waiting"></va-dropzone>
+            </div>
+            <ui-tab tabs="resolution,info,coordinate,units" class="open">
+                <div slot="info">
+                    <va-info></va-info>		
+                </div>
+                <div slot="density">
+                    <va-density></va-density>		
+                </div>
+                <div slot="resolution">
+                    <va-resolution></va-resolution>	
+                </div>
+                <div slot="coordinate">
+                    <va-coordinates></va-coordinates>		
+                </div>
+                <div slot="units">
+                    <va-units></va-units>	
+                </div>
+            </ui-tab>
+        </ui-section>	
+        
+        <ui-modal hidden>
+            Your account is already processing the maximum number of datasets allowed. <br> Uploads are disabled until the current datasets have completed processing. <br>Please contact info@voxxlr.com if your datasets do not complete or you require a larger
+            limit.
+        </ui-modal>	
+    </div>
+
+{{#password}}
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+    <ui-password password="{{{password}}}"></ui-password> 	
+{{/password}}
+    
+</body>
+
+</html>
