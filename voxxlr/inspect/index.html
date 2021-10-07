@@ -354,7 +354,7 @@
             
             let viewer = viewer3d.getViewer();
             {{#password}}
-            document.querySelector("ui-password").addEventListener("verified", event=>
+            document.querySelector("ui-password").addEventListener("verified", async event=>
             {
                 await viewer.init(decodeURIComponent("{{{token}}}"));
                 if (!viewer.hasAttribute("token"))

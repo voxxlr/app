@@ -478,7 +478,7 @@
             let meter = JSON.parse('{{{meter}}}');
             
             {{#password}}
-            document.querySelector("ui-password").addEventListener("verified", event=>
+            document.querySelector("ui-password").addEventListener("verified", async event=>
             {
                 loadApp(meter);
             })
