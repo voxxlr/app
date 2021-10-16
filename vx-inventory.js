@@ -381,7 +381,7 @@ class VxInventory extends HTMLElement
     
     async search()
     {
-        return fetch('https://app.voxxlr.com/search', 
+        return fetch('/search', 
         { 
             method: 'POST', 
             headers: new Headers({
@@ -438,7 +438,7 @@ class VxInventory extends HTMLElement
     {
         if (!this.listing.allLoaded)
         { 
-            return fetch('https://app.voxxlr.com/list', 
+            return fetch('/list', 
             { 
                 method: 'POST', 
                 headers: new Headers({
@@ -463,11 +463,16 @@ class VxInventory extends HTMLElement
                         if (entry.meta.preview)
                         {
                             image.src = entry.meta.preview;
+                            image.onerror = function()
+                            { 
+                                this.src="https://voxxlr.github.io/app/voxxlr/inventory/images/camera.webp";
+                                this.parentElement.classList.add("no-image")
+                            }
                         }
-                        image.onerror = function()
-                        { 
-                            this.src="https://voxxlr.github.io/app/voxxlr/inventory/images/camera.webp";
-                            this.parentElement.classList.add("no-image")
+                        else
+                        {
+                            image.src="https://voxxlr.github.io/app/voxxlr/inventory/images/camera.webp";
+                            image.parentElement.classList.add("no-image")
                         }
                         div.querySelector(".text").textContent = entry.meta.name;
 
@@ -540,7 +545,8 @@ class VxDatasetInfo extends HTMLElement
                 div.firstElementChild.remove();
             }
             
-            event.detail.tags.forEach(entry =>
+            let tags = event.detail.tags || [];
+            tags.forEach(entry =>
             {
                 if (entry.length > 0) // remove this test sometimes
                 {

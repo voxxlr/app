@@ -80,7 +80,7 @@
                 */
                 for (var id in args.meta.import || {})
                 {
-                    await fetch(`https://app.voxxlr.com/load/${args.meta.import[id].document}`, 
+                    await fetch(`/load/${args.meta.import[id].document}`, 
                     { 
                         method: 'POST', 
                         headers: new Headers({

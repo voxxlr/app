@@ -171,7 +171,7 @@ class VaImport extends HTMLElement
                 entry.vxIcon = "fa-file-import";
                 entry.name = entry.meta.name;
                 
-                fetch(`https://app.voxxlr.com/load/${entry.document}`, 
+                fetch(`/load/${entry.document}`, 
                 { 
                     method: 'POST', 
                     headers: new Headers({

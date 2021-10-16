@@ -202,7 +202,7 @@ class VxListing extends HTMLElement
     {
         if (!this.allLoaded)
         { 
-            return fetch('https://app.voxxlr.com/list', 
+            return fetch('/list', 
             { 
                 method: 'POST', 
                 headers: new Headers({
