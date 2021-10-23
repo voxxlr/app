@@ -87,7 +87,7 @@ class VxFilter extends HTMLElement
         
                 <ui-panel name="Geometry">
                     <div class="slider"><span>Point Size</span><ui-slider id="pointsize" horz></ui-slider></div>
-                    <div class="slider"><span>Point Budget</span><ui-slider id="pointcount" horz></ui-slider></div>
+                    <div class="slider"><span>Point Budget</span><ui-slider id="buffercount" horz></ui-slider></div>
                 </ui-panel>
         
                 <ui-panel id="grid" name="Classes">
@@ -160,12 +160,10 @@ class VxFilter extends HTMLElement
             this.viewer.post("cloud.point.scale", { id: this.id,  value: event.detail/0.5 });
         });
         
-        this.pointcount = this.dom.getElementById("pointcount");
-        this.pointcount.addEventListener("change", event  =>
+        this.buffercount = this.dom.getElementById("buffercount");
+        this.buffercount.addEventListener("change", event  =>
         {
-            let pointCount = this.MINPOINTS + (this.MAXPOINTS - this.MINPOINTS)*event.detail;
-    
-            this.viewer.post("cloud.point.max", { id: this.id,  value: pointCount });
+             this.viewer.post("cloud.point.max", { id: this.id,  value: this.MINBUFFERS + (this.MAXBUFFERS - this.MINBUFFERS)*event.detail });
         });
         
         this.classes = this.dom.getElementById("grid");
@@ -178,8 +176,8 @@ class VxFilter extends HTMLElement
         });
         
         
-        this.MAXPOINTS = 6500000;
-        this.MINPOINTS = 1500000;
+        this.MAXBUFFERS = 160;
+        this.MINBUFFERS = 1;
     }
     
     
@@ -210,7 +208,7 @@ class VxFilter extends HTMLElement
                 this.slopeFilter.hidden = attributes["normal"] == null;
                 this.classes.hidden = attributes["class"] == null;
                 
-                this.pointcount.set(0.5);
+                this.buffercount.set(0.5);
                 this.pointsize.set(0.61);
                 
                 let grid = this.dom.getElementById("grid")
@@ -282,7 +280,7 @@ class VxFilter extends HTMLElement
                                 this.heightFilter.set(0,1, false);
                             }
                         
-                            this.pointcount.set(viewpoint.maxPoints/this.MAXPOINTS);
+                            this.buffercount.set((viewpoint.maxBuffers || 50.0)/this.MAXBUFFERS);
                             this.pointsize.set(viewpoint.shader.scalar/2);
                         
                         

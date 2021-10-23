@@ -575,9 +575,6 @@ class VaResolution extends HTMLElement
             <div class="image resolution"></div>
         `;
         
-        
-            
-        //console.log(this.maxPoints + " million points ");
         this.resolutionswitch = this.dom.getElementById("resolution-switch");
         this.resolutionvalue = this.dom.getElementById("resolution-value");
         this.resolutionswitch.addEventListener("change", (event)=>
