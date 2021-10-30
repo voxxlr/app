@@ -135,10 +135,19 @@ class VxViewer extends HTMLElement
     
     connectedCallback() 
     {
+        if (this.hasAttribute("domain"))
+        {
+            this.domain = this.getAttribute("domain")
+        }
+        else
+        {
+            this.domain = "https://doc.voxxlr.com"
+        }
+    
         let token = this.getAttribute("token");
         if (token)
         {
-            this.iframe.src = `https://doc.voxxlr.com/index.html?token=${token}${this.meta}`;
+            this.iframe.src = `${this.domain}/index.html?token=${token}${this.meta}`;
         }
         
         window.addEventListener('message', (e) =>
@@ -275,7 +284,7 @@ class VxViewer extends HTMLElement
             return new Promise((resolve, reject) =>
             {
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", "https://doc.voxxlr.com/load", true);
+                xhr.open("POST", `${this.domain}/load`, true);
                 xhr.setRequestHeader('Authorization', 'Bearer ' + document);
                 xhr.onload = (e) =>
                 {
@@ -342,7 +351,7 @@ class VxViewer extends HTMLElement
                     custom = '';
                 }
                 
-                this.iframe.src = `https://doc.voxxlr.com/index.html?token=${encodeURIComponent(token)}${this.meta}${custom}`;
+                this.iframe.src = `${this.domain}/index.html?token=${encodeURIComponent(token)}${this.meta}${custom}`;
                 
                 this.iframe.onload = ()=>
                 {
@@ -451,7 +460,7 @@ class VxViewer extends HTMLElement
     {
         let base64 = await this.wait("viewer.image.get", { width: 640, height: 320, type: "image/jpeg", options: 0.8});
 
-        fetch("https://doc.voxxlr.com/preview", 
+        fetch(`${this.domain}/preview`, 
         { 
             method: 'PUT', 
             headers: new Headers({

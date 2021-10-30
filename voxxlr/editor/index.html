@@ -76,7 +76,7 @@
                 await document.querySelector("vx-list").save(patch);
                 await document.querySelector("vx-tab").save(patch);
 
-                fetch('https://doc.voxxlr.com/meta', 
+                fetch('{{{domain}}}/meta', 
                 { 
                     method: 'PATCH', 
                     headers: new Headers({
@@ -382,7 +382,7 @@
                 </div>
             </ui-stack>
         </aside>
-        <vx-viewer meta="viewpoints,polygon,line,point,import,name">
+        <vx-viewer meta="viewpoints,polygon,line,point,import,name" domain="{{{domain}}}">
             <div>
                 <vx-tab comments editable></vx-tab><button name="save" class="vx-app vx-secondary" hidden><i class="fas fa-save"></i><span>Save</span></button>
             </div>

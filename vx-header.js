@@ -59,14 +59,17 @@ class VxHeader extends HTMLElement
                 
         this.viewer.on("viewer.load", (args) => 
         {
-            let payload = JSON.parse(atob(decodeURIComponent(args.token.substring(args.token.indexOf('.')+1))));
-            if (payload.p === "W" && this.hasAttribute("save"))
+            if (args.token)
             {
-                this.dom.querySelector("button[name='save']").hidden = false;
-            }
-            else
-            {
-                this.dom.querySelector("button[name='save']").hidden = true;
+                let payload = JSON.parse(atob(decodeURIComponent(args.token.substring(args.token.indexOf('.')+1))));
+                if (payload.p === "W" && this.hasAttribute("save"))
+                {
+                    this.dom.querySelector("button[name='save']").hidden = false;
+                }
+                else
+                {
+                    this.dom.querySelector("button[name='save']").hidden = true;
+                }
             }
         
             this.dom.querySelector("span.name").textContent = args.meta.name;
