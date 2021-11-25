@@ -51,7 +51,7 @@ class VxList extends HTMLElement
             event.target.toggleAttribute("open", true);
             let panel = event.target.firstElementChild;
             
-            this.viewer.post(panel.type+".select", { id:panel.id }, { domain: "measurement" });
+            this.viewer.post(panel.type+".select", { id:panel.id }, {  });
             
             this.dispatchEvent(new CustomEvent('item-focus', { bubbles: true, composed: true, detail: { id: event.target.firstElementChild.id, type: event.target.firstElementChild.type }} ));
         });

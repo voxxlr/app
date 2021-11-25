@@ -9,6 +9,7 @@ Running the demo requires that the doc repository has already been cloned and th
 
 ```javascript
 npm install mustache
+npm install open
 node server.js 
 ```
 

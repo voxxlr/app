@@ -282,13 +282,18 @@ class VxInventory extends HTMLElement
     }
         
     connectedCallback() 
-    {
+    {/*
+        this.viewer.domain = this.getAttribute("domain");
+        this.viewer.init(JSON.stringify({ id: "wmts", source: { data: "https://tile.openstreetmap.org/{z}/{x}/{y}.png" }, type: "wmts", maxZoom: 19 }));
+        */
+        
         this.viewer.iframe.src = "https://doc.voxxlr.com/viewer/2D.html";
         this.viewer.iframe.onload = async (event) =>
         {
             await this.list(); 
             await this.search();
         };
+        
         
         this.meta = ["name", "description", "preview"];
         if (this.hasAttribute("meta"))
@@ -381,7 +386,7 @@ class VxInventory extends HTMLElement
     
     async search()
     {
-        return fetch('/search', 
+        return fetch('https://app.voxxlr.com/search', 
         { 
             method: 'POST', 
             headers: new Headers({
@@ -438,7 +443,7 @@ class VxInventory extends HTMLElement
     {
         if (!this.listing.allLoaded)
         { 
-            return fetch('/list', 
+            return fetch('https://app.voxxlr.com/list', 
             { 
                 method: 'POST', 
                 headers: new Headers({

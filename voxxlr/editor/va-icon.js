@@ -39,7 +39,7 @@ class VaIcon extends HTMLElement
             <ui-button-group single>
                 <button id="info" class="vx-secondary" active><img src="https://voxxlr.github.io/app/voxxlr/editor/images/info.webp"></button>
                 <button id="question" class="vx-secondary"><img src="https://voxxlr.github.io/app/voxxlr/editor/images/question.webp"></button>
-                <button id="warn" class="vx-secondary"><img src="https://voxxlr.github.io/app/voxxlr/editor/warn.webp"></button>
+                <button id="warn" class="vx-secondary"><img src="https://voxxlr.github.io/app/voxxlr/editor/images/warn.webp"></button>
                 <button id="alarm" class="vx-secondary"><img src="https://voxxlr.github.io/app/voxxlr/editor/images/alarm.webp"></button>
                 <button id="link" class="vx-secondary"><img src="https://voxxlr.github.io/app/voxxlr/editor/images/link.webp"></button>
                 <button id="window" class="vx-secondary"><img src="https://voxxlr.github.io/app/voxxlr/editor/images/window.webp"></button>
