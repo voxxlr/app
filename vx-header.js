@@ -10,7 +10,7 @@ class VxHeader extends HTMLElement
         this.dom.innerHTML = `
     
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
 
             <style>
             
@@ -29,6 +29,8 @@ class VxHeader extends HTMLElement
                 span.name { margin-left: 1em; }
         
                 button[name='save'] { margin-right: 0.1em; margin-top: 0.1em; }
+                
+                /*:host(:not([launch])) button[name='launchpad'] { visibility: hidden }*/
 
             </style>
             
@@ -39,7 +41,16 @@ class VxHeader extends HTMLElement
                 </ui-tooltip>				
             </button>
             <div><span class="name"></span><i class="fas fa-map-pin" hidden></i><span class="address"></span></div> 
-            <button name="save" class="vx-app vx-primary" hidden><i class="fas fa-save"></i><span>Save</span></button>
+            <button name="save" class="vx-app vx-primary" hidden>
+                <i class="fas fa-save"></i>
+                <span>Save</span>
+            </button>
+            <!--			
+            <button name="launchpad" class="vx-primary">
+                <i class="fas fa-rocket"></i>
+            </button>
+            -->
+
         `;		
             
         this.dom.querySelector("button[name='inventory']").addEventListener("click", (event) =>
@@ -51,6 +62,13 @@ class VxHeader extends HTMLElement
         {
             this.dispatchEvent(new CustomEvent('header-save', { bubbles: true, composed: true }));
         });
+
+        /*
+        this.dom.querySelector("button[name='launchpad']").addEventListener("click", (event) =>
+        {
+            window.location = `${window.origin}/launchpad.html`; 
+        });
+        */
     }
     
     attach(viewer)

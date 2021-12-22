@@ -9,7 +9,7 @@ class VaImport extends HTMLElement
         this.dom.innerHTML = `
 
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
         
             <style>
             
@@ -217,7 +217,7 @@ class VaImport extends HTMLElement
                 VaImport.DIV.remove();
                 delete VaImport.DIV;
                 
-                fetch('https://doc.voxxlr.com/load', 
+                fetch(`${window.doc_domain}/load`, 
                 { 
                     method: 'POST', 
                     headers: new Headers({

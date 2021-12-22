@@ -3,22 +3,28 @@
 <head>
 
     <title>Inventory</title>
-    <link rel="shortcut icon" href="https://voxxlr.github.io/www/favicon.ico" />
+   <link rel="shortcut icon" href="{{{app_source}}}/voxxlr/favicon.ico" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+    
+    <script>
+        window.doc_domain = "{{{doc_domain}}}";
+        window.app_endpoint = "{{{app_endpoint}}}";
+        window.app_source = "{{{app_source}}}";
+    </script>
+        
+    <link rel="stylesheet" href="{{{app_source}}}/ui.css">
      
     <!-- ui only component -->
-    <script src="https://voxxlr.github.io/app/ui.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-viewer.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-file.js"></script>
+    <script src="{{{app_source}}}/ui.js"></script>
+    <script src="{{{app_source}}}/vx-viewer.js"></script>
+    <script src="{{{app_source}}}/vx-file.js"></script>
      
-    <script src="https://voxxlr.github.io/app/voxxlr/inventory/va-token.js"></script>
-    <script src="https://voxxlr.github.io/app/voxxlr/inventory/va-documents.js"></script>
-    <script src="https://voxxlr.github.io/app/voxxlr/inventory/va-map.js"></script>
-    <script src="https://voxxlr.github.io/app/voxxlr/inventory/va-attributes.js"></script>
-    
-
+    <script src="{{{app_source}}}/voxxlr/inventory/va-token.js"></script>
+    <script src="{{{app_source}}}/voxxlr/inventory/va-documents.js"></script>
+    <script src="{{{app_source}}}/voxxlr/inventory/va-map.js"></script>
+    <script src="{{{app_source}}}/voxxlr/inventory/va-attributes.js"></script>
+ 
     <style>
     
         body 
@@ -63,7 +69,7 @@
     </style>  
      
     <script>
-    
+      
         document.addEventListener('contextmenu', event => event.preventDefault());
         
         window.addEventListener("load", async function(event) 

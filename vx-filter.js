@@ -10,7 +10,7 @@ class VxFilter extends HTMLElement
         this.dom.innerHTML = `
 
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
         
             <style>
             
@@ -214,6 +214,7 @@ class VxFilter extends HTMLElement
                 let grid = this.dom.getElementById("grid")
                 if (attributes["class"])
                 {
+                    /*
                     let classes = attributes.class.colors;
                     
                     let list = grid.querySelectorAll(".color");
@@ -232,7 +233,7 @@ class VxFilter extends HTMLElement
                             list[i].previousSibling.toggleAttribute("checked",false);
                         }
                     };
-                    
+                    */
                     grid.hidden = false;
                 }
                 else

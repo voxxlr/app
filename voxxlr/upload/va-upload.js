@@ -14,7 +14,7 @@ class VaDropZone extends HTMLElement
         this.dom.innerHTML = `
     
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
 
             <style>
             
@@ -306,7 +306,7 @@ class VaInfo extends HTMLElement
         this.dom.innerHTML = `
     
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
 
             <style>
             
@@ -416,7 +416,7 @@ class VaDensity extends HTMLElement
         this.dom.innerHTML = `
     
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
 
             <style>
             
@@ -449,7 +449,7 @@ class VaDensity extends HTMLElement
         
                 .image.density 
                 {
-                    background: url('https://voxxlr.github.io/app/voxxlr/upload/images/radiusfilter.png') center;
+                    background: url('${window.app_source}/voxxlr/upload/images/radiusfilter.png') center;
                     background-size: 100% 100%;
                     background-repeat: no-repeat;
                 }
@@ -515,7 +515,7 @@ class VaResolution extends HTMLElement
          
         this.dom.innerHTML = `
     
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
 
             <style>
             
@@ -548,7 +548,7 @@ class VaResolution extends HTMLElement
         
                 .image.resolution 
                 {
-                    background: url('https://voxxlr.github.io/app/voxxlr/upload/images/gridfilter.webp') center;
+                    background: url('${window.app_source}/voxxlr/upload/images/gridfilter.webp') center;
                     background-size: 100% 100%;
                     background-repeat: no-repeat;
                 }
@@ -618,7 +618,7 @@ class VaCoordinates extends HTMLElement
         this.dom.innerHTML = `
     
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
 
             <style>
             
@@ -752,7 +752,7 @@ class VaUnits extends HTMLElement
         this.dom.innerHTML = `
     
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
 
             <style>
             
@@ -824,7 +824,7 @@ class VaProcessing extends HTMLElement
         this.dom.innerHTML = `
     
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
 
             <style>
             

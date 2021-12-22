@@ -92,6 +92,7 @@ class VxViewer extends HTMLElement
                     this.v = 3;
                     break;
                 case "map":
+                case "wmts":
                     this.v = 2;
                     break;
                 case "panorama":
@@ -135,19 +136,10 @@ class VxViewer extends HTMLElement
     
     connectedCallback() 
     {
-        if (this.hasAttribute("domain"))
-        {
-            this.domain = this.getAttribute("domain")
-        }
-        else
-        {
-            this.domain = "https://doc.voxxlr.com"
-        }
-    
         let token = this.getAttribute("token");
         if (token)
         {
-            this.iframe.src = `${this.domain}/index.html?token=${token}${this.meta}`;
+            this.iframe.src = `${window.doc_domain}/index.html?token=${token}${this.meta}`;
         }
         
         window.addEventListener('message', (e) =>
@@ -284,7 +276,7 @@ class VxViewer extends HTMLElement
             return new Promise((resolve, reject) =>
             {
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", `${this.domain}/load`, true);
+                xhr.open("POST", `${window.doc_domain}/load`, true);
                 xhr.setRequestHeader('Authorization', 'Bearer ' + document);
                 xhr.onload = (e) =>
                 {
@@ -351,7 +343,7 @@ class VxViewer extends HTMLElement
                     custom = '';
                 }
                 
-                this.iframe.src = `${this.domain}/index.html?token=${encodeURIComponent(token)}${this.meta}${custom}`;
+                this.iframe.src = `${window.doc_domain}/index.html?token=${encodeURIComponent(token)}${this.meta}${custom}`;
                 
                 this.iframe.onload = ()=>
                 {
@@ -460,7 +452,7 @@ class VxViewer extends HTMLElement
     {
         let base64 = await this.wait("viewer.image.get", { width: 640, height: 320, type: "image/jpeg", options: 0.8});
 
-        fetch(`${this.domain}/preview`, 
+        fetch(`${window.doc_domain}/preview`, 
         { 
             method: 'PUT', 
             headers: new Headers({

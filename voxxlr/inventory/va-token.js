@@ -15,7 +15,7 @@ class VaToken extends HTMLElement
         
             <style>
             
-                <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+                <link rel="stylesheet" href="${window.app_source}/ui.css">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
                 :host
@@ -70,12 +70,12 @@ class VaToken extends HTMLElement
                 </div>
             </ui-tab>
             
-            <button class="vx-secondary"><img style="height: 40px" src="https://voxxlr.github.io/app/voxxlr/inventory/images/swagger.webp">Swagger</button>
+            <button class="vx-secondary"><img style="height: 40px" src="${window.app_source}/voxxlr/inventory/images/swagger.webp">Swagger</button>
             `;
             
             this.dom.querySelector("button").addEventListener("click", event=>
             {
-                window.open(`https://doc.voxxlr.com/rest.html?token=${encodeURIComponent(this.getAttribute("token"))}`, "Rest Api");
+                window.open(`${window.doc_domain}/rest.html?token=${encodeURIComponent(this.getAttribute("token"))}`, "Rest Api");
             })
             
             this.dom.querySelectorAll("span").forEach(span => span.addEventListener("click", event=>

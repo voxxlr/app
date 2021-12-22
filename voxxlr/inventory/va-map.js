@@ -108,10 +108,10 @@ class VaMap extends HTMLElement
                             new Image(),
                         ];
                         
-                        U.icon[0].src = "https://voxxlr.github.io/app/voxxlr/inventory/images/pin.webp"; 
-                        U.icon[1].src = "https://voxxlr.github.io/app/voxxlr/inventory/images/pin.webp"; 
-                        U.icon[2].src = "https://voxxlr.github.io/app/voxxlr/inventory/images/pin.webp"; 
-                        U.icon[3].src = "https://voxxlr.github.io/app/voxxlr/inventory/images/pin.webp"; 
+                        U.icon[0].src = `https://voxxlr.github.io/app/voxxlr/inventory/images/pin.webp`; 
+                        U.icon[1].src = `https://voxxlr.github.io/app/voxxlr/inventory/images/pin.webp`; 
+                        U.icon[2].src = `https://voxxlr.github.io/app/voxxlr/inventory/images/pin.webp`; 
+                        U.icon[3].src = `https://voxxlr.github.io/app/voxxlr/inventory/images/pin.webp`; 
                      }.toString())
             });
             
@@ -126,7 +126,7 @@ class VaMap extends HTMLElement
             let content = this.div.content;
             content.location = { lon, lat };
             
-            fetch(`https://doc.voxxlr.com`,  
+            fetch(`${window.doc_domain}`,  
             { 
                 method: 'PATCH', 
                 headers: new Headers({
@@ -157,7 +157,7 @@ class VaMap extends HTMLElement
             
             content.location = { lon, lat };
             
-            fetch(`https://doc.voxxlr.com`,  
+            fetch(`${window.doc_domain}`,  
             { 
                 method: 'PATCH', 
                 headers: new Headers({
@@ -213,7 +213,7 @@ class VaMap extends HTMLElement
         
     connectedCallback() 
     {
-        this.viewer.iframe.src = "https://doc.voxxlr.com/viewer/2D.html";
+        this.viewer.init(JSON.stringify({ id: "openstreetmap", data: "https://tile.openstreetmap.org/{z}/{x}/{y}.png", type: "wmts", maxZoom: 19 }));
     }
     
     toXY(lon, lat)

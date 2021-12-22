@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Launchpad</title>
+    <link rel="shortcut icon" href="https://voxxlr.github.io/www/favicon.ico" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/ui.css">
+
+    <script>
+        window.doc_domain = "{{{doc_domain}}}";
+        window.app_endpoint = "{{{app_endpoint}}}";
+        window.app_source = "{{{app_source}}}";
+    </script>
+
+    <script src="/ui.js"></script>
+     
+    <style>
+    
+        :root 
+        {
+            --management-app: #0075FF;
+            --presentation-app: #ffcc00;
+            --productivity-app: #00cc33;
+            --labs-app: #cc3300;
+            --background: #F8F8FE;
+        }
+    
+        
+        body 
+        { 
+            height: 100%;
+            user-select: none;
+            display: flex;
+            justify-content: center;
+            background: var(--background);
+        }
+
+        main 
+        { 
+            display: flex;
+            flex-direction: column;
+            background: #F8F8FE;
+            padding-top: 2em;
+        }
+        
+        .category 
+        { 
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin: 1em;
+            padding-bottom: 2em;
+        }
+        .category:last-child { margin-bottom: 20em; }
+        
+        .title 
+        {
+            margin-left: 1.5em;
+            color: var(--border) 
+        }
+        
+        .app 
+        { 
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            width: 15em;
+            height: 8em;
+            margin: 0.5em; 
+            border: 1px outset var(--border);
+            background: white;
+            box-sizing: border-box;
+        }
+        
+        .app i { margin-top: 0.5em; }
+        
+        div.category.management	.app { color: var(--management-app) }
+        div.category.management	.app:hover { border: 2px outset var(--management-app); }
+        main[edit] div.category.management	.app:hover { border: 2px outset var(--primary); }
+        
+        div.category.presentation .app { color: var(--presentation-app) }
+        div.category.presentation .app:hover { border: 2px outset var(--presentation-app); }
+        main[edit] div.category.presentation .app:hover { border: 2px outset var(--primary); }
+        
+        div.category.productivity .app { color: var(--productivity-app) }
+        div.category.productivity .app:hover { border: 2px outset var(--productivity-app); }
+        main[edit] div.category.productivity .app:hover { border: 2px outset var(--primary); }
+        
+        div.category.labs .app { color: var(--labs-app) }
+        div.category.labs .app:hover { border: 2px outset var(--labs-app); }
+        main[edit] div.category.labs .app:hover  { border: 2px outset var(--primary); }		
+    
+        main:not([edit]) .app > ui-checkbox { visibility: hidden }
+        main[edit] .app  { border: 2px outset var(--primary); }
+        main[edit] .app:hover  { border: 2px outset var(--primary); }
+
+          
+    </style>  
+     
+    <script>
+    
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        
+        window.addEventListener("load", (event) => 
+        {
+            document.addEventListener("contextmenu", (e) => { e.preventDefault(); }, false);
+            
+            document.querySelectorAll("main .app").forEach(panel => 
+            {
+                panel.addEventListener("click", event =>
+                {
+                    window.location = `${event.currentTarget.getAttribute("data-name")}/index.html`;
+                });
+            });
+            
+            let timer = null;
+            document.querySelectorAll(".app").forEach(item => item.addEventListener("mouseenter", event =>
+            {
+                if (timer)
+                {
+                    clearTimeout(timer);				
+                }
+
+                let div = event.currentTarget.querySelector(".description"); 
+                if (div)
+                {
+                    timer = setTimeout(() => 
+                    {
+                        document.querySelectorAll(".description").forEach(item => item.hidden=true);
+                        div.hidden = false;
+                        timer = null;
+                    }, 700);
+                
+                }
+            }));
+            
+            document.querySelectorAll(".app").forEach(item => item.addEventListener("mouseleave", event =>
+            {
+                if (timer)
+                {
+                    clearTimeout(timer);				
+                }
+                
+                let div = event.currentTarget.querySelector(".description"); 
+                if (div)
+                {
+                    div.hidden = true;
+                }
+            }));
+
+            
+        });
+
+    
+    </script>
+</head>
+
+<body>
+
+    <main>
+
+        <div class="title">Data Management</div>
+        <div class="category management">
+            <!-- 
+            <div class="app" data-name="voxxlr/upload">
+                <i class="fas fa-3x fa-upload"></i>
+                <p>Upload</p>
+                <ui-tooltip hidden="">
+                    <p>Upload point clouds, CAD models, drone maps and more</p><p><i class="fas fa-2x fa-lightbulb"></i><span>Start here...</span></p>
+                </ui-tooltip>
+            </div>
+             -->
+            <div class="app" data-name="voxxlr/inventory">
+                <i class="fas fa-3x fa-database"></i>
+                <p>Inventory</p>
+                <ui-tooltip hidden="">
+                    <p>Manage the data sets in your account. Add descriptions, record preview images and specify geographic location</p>
+                </ui-tooltip>
+            </div>
+        </div>
+        
+        <!-- 
+        <div class="title">Presentation</div>
+        <div class="category presentation">
+            <div class="app" data-name="voxxlr/viewer">
+                <i class="fas fa-3x fa-eye"></i>
+                <p>Viewer</p>
+                <ui-tooltip hidden="">
+                    <p>An easy to use viewer to share presentation created with the editor</p>
+                </ui-tooltip>				
+            </div>
+            <div class="app" data-name="voxxlr/embed">
+                <i class="fas fa-3x fa-code"></i>
+                <p>Embed</p>
+                <ui-tooltip hidden="">
+                    <p>An minimal viewer best suited to embed data sets in existing web pages</p>
+                </ui-tooltip>				
+            </div>
+        </div>
+         -->
+        <div class="title">Productivity</div>
+        <div class="category productivity">
+            <div class="app" data-name="voxxlr/editor">
+                <i class="fas fa-3x fa-edit"></i>
+                <p>Editor</p>
+                <ui-tooltip hidden="">
+                    <p>A general editor to take measurements, annotate the data and create presentations</p>
+                </ui-tooltip>				
+            </div>
+            <!-- 
+            <div class="app" data-name="voxxlr/volumetric">
+                <i class="fas fa-3x fa-layer-group"></i>
+                <p>Volumetric</p>
+                <ui-tooltip hidden="">
+                    <p>Measure volumes and elevation profiles in digital elevation models. This App only applies to 2D elevation models</p>
+                </ui-tooltip>				
+            </div>
+            <div class="app" data-name="voxxlr/bim">
+                <i class="fas fa-3x fa-building"></i>
+                <p>BIM Viewer</p>
+                <ui-tooltip hidden="">
+                    <p>A viewer to explore and dissect a 3D CAD model</p>
+                </ui-tooltip>				
+            </div>
+             -->
+        </div>
+
+        <ui-snackbar>
+        </ui-snackbar>
+    </main>
+     
+</body>
+
+</html>
+            

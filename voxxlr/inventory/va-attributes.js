@@ -10,7 +10,7 @@ class VaAttributes extends HTMLElement
         
         this.dom.innerHTML = `
 
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
             <style>
             
@@ -141,7 +141,7 @@ class VaAttributes extends HTMLElement
         { 
             this.dom.getElementById("delete-dialog").hidden = true;
              
-            fetch("https://doc.voxxlr.com", 
+            fetch(`${window.doc_domain}`, 
             { 
                 method: 'DELETE', 
                 headers: new Headers({
@@ -173,7 +173,7 @@ class VaAttributes extends HTMLElement
         this.dom.querySelector("ui-tag-list").addEventListener("tags-changed", event =>  
         {
             this.div.content.tags = event.detail;
-            fetch(`https://doc.voxxlr.com`,  
+            fetch(`${window.doc_domain}`,  
             { 
                 method: 'PATCH', 
                 headers: new Headers({
@@ -186,7 +186,7 @@ class VaAttributes extends HTMLElement
         this.dom.querySelector("input").addEventListener("change", event =>  
         {
             this.div.content.meta.name = event.currentTarget.value;
-            fetch('https://doc.voxxlr.com/meta', 
+            fetch(`${window.doc_domain}/meta`, 
             { 
                 method: 'PATCH', 
                 headers: new Headers({
@@ -203,7 +203,7 @@ class VaAttributes extends HTMLElement
         this.dom.querySelector("textarea").addEventListener("change", event =>  
         {
             this.div.content.meta.description = event.currentTarget.value;
-            fetch('https://doc.voxxlr.com/meta', 
+            fetch(`${window.doc_domain}/meta`, 
             { 
                 method: 'PATCH', 
                 headers: new Headers({
@@ -219,7 +219,7 @@ class VaAttributes extends HTMLElement
         
         this.dom.querySelector("vx-file").addEventListener("item-done", event=>
         {
-            fetch(`https://doc.voxxlr.com/file/preview.jpg`, 
+            fetch(`${window.doc_domain}/file/preview.jpg`, 
             {
                 headers: new Headers({ 'Authorization': `Bearer ${this.div.content.token}` }),
             }).then(async (response) =>

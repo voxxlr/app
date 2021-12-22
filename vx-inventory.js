@@ -8,7 +8,7 @@ class VxInventory extends HTMLElement
         this.dom.innerHTML = `
     
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
 
             <style>
             
@@ -125,11 +125,11 @@ class VxInventory extends HTMLElement
         `;
                 
         this.selected = null;
-                
+   
         //
         // Map
         // 
-
+ 
         this.pin = {  type: "point", };
         this.pin.code =
         {
@@ -179,15 +179,14 @@ class VxInventory extends HTMLElement
                             new Image(),
                             new Image(),
                         ];
-                        
-                        U.icon[0].src = "https://voxxlr.github.io/app/voxxlr/inspect/pinGrey.webp";  
-                        U.icon[1].src = "https://voxxlr.github.io/app/voxxlr/inspect/pinGreen.webp"; 
-                        U.icon[2].src = "https://voxxlr.github.io/app/voxxlr/inspect/pinBlue.webp"; 
-                        U.icon[3].src = "https://voxxlr.github.io/app/voxxlr/inspect/pinOrange.webp";  
-                        U.icon[4].src = "https://voxxlr.github.io/app/voxxlr/inspect/pinRed.webp";  
+                        U.icon[0].src = `https://voxxlr.github.io/app/voxxlr/inspect/pinGrey.webp`;  
+                        U.icon[1].src = `https://voxxlr.github.io/app/voxxlr/inspect/pinGreen.webp`; 
+                        U.icon[2].src = `https://voxxlr.github.io/app/voxxlr/inspect/pinBlue.webp`; 
+                        U.icon[3].src = `https://voxxlr.github.io/app/voxxlr/inspect/pinOrange.webp`;  
+                        U.icon[4].src = `https://voxxlr.github.io/app/voxxlr/inspect/pinRed.webp`;  
                         
                         U.redIcon = new Image();
-                        U.redIcon.src = "https://voxxlr.github.io/app/voxxlr/inspect/pinRed.webp";
+                        U.redIcon.src = `https://voxxlr.github.io/app/voxxlr/inspect/pinRed.webp`;
                      }.toString())
             });
             
@@ -282,19 +281,23 @@ class VxInventory extends HTMLElement
     }
         
     connectedCallback() 
-    {/*
+    {
         this.viewer.domain = this.getAttribute("domain");
-        this.viewer.init(JSON.stringify({ id: "wmts", source: { data: "https://tile.openstreetmap.org/{z}/{x}/{y}.png" }, type: "wmts", maxZoom: 19 }));
-        */
-        
-        this.viewer.iframe.src = "https://doc.voxxlr.com/viewer/2D.html";
+        this.viewer.init(JSON.stringify({ id: "openstreetmap", data: "https://tile.openstreetmap.org/{z}/{x}/{y}.png", type: "wmts", maxZoom: 19 }));
         this.viewer.iframe.onload = async (event) =>
         {
             await this.list(); 
             await this.search();
         };
         
-        
+        /*
+        this.viewer.iframe.src = `${window.doc_domain}/viewer/2D.html`;
+        this.viewer.iframe.onload = async (event) =>
+        {
+            await this.list(); 
+            await this.search();
+        };
+        */
         this.meta = ["name", "description", "preview"];
         if (this.hasAttribute("meta"))
         {
@@ -386,7 +389,7 @@ class VxInventory extends HTMLElement
     
     async search()
     {
-        return fetch('https://app.voxxlr.com/search', 
+        return fetch(`${window.doc_domain}/search`, 
         { 
             method: 'POST', 
             headers: new Headers({
@@ -443,7 +446,7 @@ class VxInventory extends HTMLElement
     {
         if (!this.listing.allLoaded)
         { 
-            return fetch('https://app.voxxlr.com/list', 
+            return fetch(`${window.doc_domain}/list`, 
             { 
                 method: 'POST', 
                 headers: new Headers({
@@ -470,13 +473,13 @@ class VxInventory extends HTMLElement
                             image.src = entry.meta.preview;
                             image.onerror = function()
                             { 
-                                this.src="https://voxxlr.github.io/app/voxxlr/inventory/images/camera.webp";
+                                this.src=`${window.app_source}/voxxlr/inventory/images/camera.webp`;
                                 this.parentElement.classList.add("no-image")
                             }
                         }
                         else
                         {
-                            image.src="https://voxxlr.github.io/app/voxxlr/inventory/images/camera.webp";
+                            image.src=`${window.app_source}/voxxlr/inventory/images/camera.webp`;
                             image.parentElement.classList.add("no-image")
                         }
                         div.querySelector(".text").textContent = entry.meta.name;
@@ -519,7 +522,7 @@ class VxDatasetInfo extends HTMLElement
         this.dom.innerHTML = `
     
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
 
             <style>
             
@@ -580,7 +583,7 @@ class VxSearchFilter extends HTMLElement
         this.dom.innerHTML = `
     
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
 
             <style>
             

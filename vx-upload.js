@@ -1,14 +1,14 @@
 class VxUpload
 {
     // This object encapsulates the REST calls required to upload a "document" to Voxxlr for processsing. 
-    // An upload begins with a call to app.voxxlr.com/upload/initiate followed by one or more 
-    // calls to app.voxxlr.com/upload/file which returns a resumable url to a Google Cloud bucket. A file
-    // are then directly uploaded to Google Cloud storage. At the end, a call to app.voxxlr.com/upload/finalize  
+    // An upload begins with a call to /upload/initiate followed by one or more 
+    // calls to /upload/file which returns a resumable url to a Google Cloud bucket. A file
+    // are then directly uploaded to Google Cloud storage. At the end, a call to /upload/finalize  
     // starts the processing of the dataset. Soon after it will be accessible via the viewer. 
     
     constructor(key)
     {
-        // this is the API key found in account screeen at after logging in at app.voxxlr.com
+        // this is the API key found in account screeen at after logging in at 
         this.key = key;
     }
     
@@ -21,7 +21,7 @@ class VxUpload
         return new Promise((resolve, reject)=>
         {
             let xhr = new XMLHttpRequest();
-            xhr.open("GET", "https://app.voxxlr.com/upload/initiate", true);
+            xhr.open("GET", `${window.app_endpoint}/upload/initiate`, true);
             xhr.setRequestHeader('Authorization', 'Bearer ' + this.key);
             xhr.onload = (e) =>
             {
@@ -44,7 +44,7 @@ class VxUpload
         return new Promise((resolve, reject)=>
         {
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", "https://app.voxxlr.com/upload/file", true);
+            xhr.open("POST", `${window.app_endpoint}/upload/file`, true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.setRequestHeader("Content-Encoding", "gzip");
             xhr.setRequestHeader('Authorization', 'Bearer ' + this.key);
@@ -80,7 +80,7 @@ class VxUpload
                 };
                 
                 console.log("Initiating upload (POST)");
-                // e.currentTarget.responseText contains the upload url return by https://app.voxxlr.com/upload/file
+                // e.currentTarget.responseText contains the upload url return by /upload/file
                 this.xhr.open("POST", e.currentTarget.responseText, true);
                 this.xhr.setRequestHeader("Content-Type", "application/octet-stream");
                 this.xhr.setRequestHeader("x-goog-resumable", "start");
@@ -101,7 +101,7 @@ class VxUpload
     // type - required: data type to process - either "cloud", "map", "model" or "panorama"
     // config - optional: may contain processing directives such as scalars, resolution etc. 
     // tags - optional: array of search tags
-    // meta - optional: application specific data. These can later be retrieved via REST calls to doc.voxxlr.com/meta
+    // meta - optional: application specific data. These can later be retrieved via REST calls to /meta
     async finalize(type, config, tags, meta)
     {
         let request = Object.assign(
@@ -121,7 +121,7 @@ class VxUpload
         return new Promise((resolve, reject)=>
         {
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", "https://app.voxxlr.com/upload/finalize", true);
+            xhr.open("POST", `${window.app_endpoint}/upload/finalize`, true);
             xhr.setRequestHeader('Authorization', 'Bearer ' + this.key);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.setRequestHeader("Content-Encoding", "gzip");

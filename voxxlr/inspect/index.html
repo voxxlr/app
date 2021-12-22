@@ -2,26 +2,31 @@
 <html lang="en">
 <head>
 
-    <link rel="shortcut icon" href="https://voxxlr.github.io/www/favicon.ico" />
+    <link rel="shortcut icon" href="{{{app_source}}}/voxxlr/favicon.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-
+    <script>
+        window.doc_domain = "{{{doc_domain}}}";
+        window.app_endpoint = "{{{app_endpoint}}}";
+        window.app_source = "{{{app_source}}}";
+    </script>
+    
     <!-- Voxxlr UI components -->    
-    <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
-    <script src="https://voxxlr.github.io/app/ui.js"></script>
+    <link rel="stylesheet" href="{{{app_source}}}/ui.css">
+    <script src="{{{app_source}}}/ui.js"></script>
     
     <!-- Voxxlr App components -->    
-    <script src="https://voxxlr.github.io/app/vx-viewer.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-inventory.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-header.js"></script>
+    <script src="{{{app_source}}}/vx-viewer.js"></script>
+    <script src="{{{app_source}}}/vx-inventory.js"></script>
+    <script src="{{{app_source}}}/vx-header.js"></script>
  
     <!-- Procore App components -->    
-    <script src="https://voxxlr.github.io/app/voxxlr/inspect/issue.js"></script>
-    <script src="https://voxxlr.github.io/app/voxxlr/inspect/2d.js"></script>
-    <script src="https://voxxlr.github.io/app/voxxlr/inspect/3d.js"></script>
+    <script src="{{{app_source}}}/voxxlr/inspect/issue.js"></script>
+    <script src="{{{app_source}}}/voxxlr/inspect/2d.js"></script>
+    <script src="{{{app_source}}}/voxxlr/inspect/3d.js"></script>
   
     <script>
-    
+        
         window.addEventListener("load", async (event) => 
         {
             document.addEventListener('contextmenu', event => event.preventDefault());
@@ -63,7 +68,7 @@
             {
                 if (!event.detail.token)
                 {
-                    await fetch(`https://app.voxxlr.com/token/${event.detail.id}`, 
+                    await fetch(`${window.app_endpoint}/token/${event.detail.id}`, 
                     { 
                         headers: new Headers({ 'Authorization': "Bearer {{{key}}}" })
                     }).then(async (response) =>
@@ -72,7 +77,7 @@
                     });
                 }
             
-                fetch(`https://doc.voxxlr.com/meta/issues`, 
+                fetch(`${window.doc_domain}/meta/issues`, 
                 { 
                     headers: new Headers({ 'Authorization': `Bearer ${event.detail.token}` })
                 }).then(async (response) =>
@@ -122,7 +127,7 @@
                 document.querySelector("vx-inventory").update(currentDataset.id, status);
                 
                 console.log('setting status ' + status)
-                fetch(`https://doc.voxxlr.com/meta`, 
+                fetch(`${window.doc_domain}/meta`, 
                 { 
                     method: 'PATCH', 
                     headers: new Headers({
@@ -203,7 +208,7 @@
                         break;
                     }
                     
-                    await fetch('https://doc.voxxlr.com/file/thumbs/'+id, 
+                    await fetch(`${window.doc_domain}/file/thumbs/${id}`, 
                     { 
                         method: 'GET', 
                         headers: new Headers({

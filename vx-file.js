@@ -131,7 +131,7 @@ class VxFile extends HTMLElement
         return new Promise((resolve, reject)=>
         {
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", "https://doc.voxxlr.com/file/"+this.path, true);
+            xhr.open("POST", `${window.doc_domain}/file/`+this.path, true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.setRequestHeader('Authorization', `Bearer ${this.getAttribute("token")}`);
             xhr.onload = (e) =>

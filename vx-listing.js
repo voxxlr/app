@@ -187,7 +187,7 @@ class VxListing extends HTMLElement
         }
         image.onerror = function()
         { 
-            this.src="https://voxxlr.github.io/app/voxxlr/inventory/images/camera.webp";
+            this.src=`${window.app_source}/voxxlr/inventory/images/camera.webp`;
         }
         div.appendChild(image);
         
@@ -202,7 +202,7 @@ class VxListing extends HTMLElement
     {
         if (!this.allLoaded)
         { 
-            return fetch('/list', 
+            return fetch(`${window.doc_domain}/list`, 
             { 
                 method: 'POST', 
                 headers: new Headers({

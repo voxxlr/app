@@ -3,7 +3,7 @@
 <head>
 
     <link rel="canonical" href="https://www.voxxlr.com/index.html">
-    <link rel="shortcut icon" href="https://voxxlr.github.io/www/favicon.ico" />
+    <link rel="shortcut icon" href="{{{app_source}}}/voxxlr/favicon.ico" />
 
     {{#og}}
     <title>{{title}}</title>
@@ -20,36 +20,40 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
+    <script>
+        window.doc_domain = "{{{doc_domain}}}";
+        window.app_endpoint = "{{{app_endpoint}}}";
+        window.app_source = "{{{app_source}}}";
+    </script>
+        
+        
     <!-- ui only component -->
-    <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
-    <script src="https://voxxlr.github.io/app/ui.js"></script>
+    <link rel="stylesheet" href="{{{app_source}}}/ui.css">
+    <script src="{{{app_source}}}/ui.js"></script>
     
     <!-- voxxlr component -->
-    <script src="https://voxxlr.github.io/app/vx-viewer.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-list.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-filter.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-hierarchy.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-camera.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-inventory.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-listing.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-header.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-tab.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-file.js"></script>
+    <script src="{{{app_source}}}/vx-viewer.js"></script>
+    <script src="{{{app_source}}}/vx-list.js"></script>
+    <script src="{{{app_source}}}/vx-filter.js"></script>
+    <script src="{{{app_source}}}/vx-hierarchy.js"></script>
+    <script src="{{{app_source}}}/vx-camera.js"></script>
+    <script src="{{{app_source}}}/vx-inventory.js"></script>
+    <script src="{{{app_source}}}/vx-listing.js"></script>
+    <script src="{{{app_source}}}/vx-header.js"></script>
+    <script src="{{{app_source}}}/vx-tab.js"></script>
+    <script src="{{{app_source}}}/vx-file.js"></script>
     
     <!-- app components -->
-    <script src="https://voxxlr.github.io/app/voxxlr/editor/va-polygon.js"></script>
-    <script src="https://voxxlr.github.io/app/voxxlr/editor/va-line.js"></script>
-    <script src="https://voxxlr.github.io/app/voxxlr/editor/va-image.js"></script>
-    <script src="https://voxxlr.github.io/app/voxxlr/editor/va-icon.js"></script>
-    <script src="https://voxxlr.github.io/app/voxxlr/editor/va-text.js"></script>
-    <script src="https://voxxlr.github.io/app/voxxlr/editor/va-link.js"></script>
-    <script src="https://voxxlr.github.io/app/voxxlr/editor/va-import.js"></script>
-       
-    <style>
-    </style>  
+    <script src="{{{app_source}}}/voxxlr/editor/va-polygon.js"></script>
+    <script src="{{{app_source}}}/voxxlr/editor/va-line.js"></script>
+    <script src="{{{app_source}}}/voxxlr/editor/va-image.js"></script>
+    <script src="{{{app_source}}}/voxxlr/editor/va-icon.js"></script>
+    <script src="{{{app_source}}}/voxxlr/editor/va-text.js"></script>
+    <script src="{{{app_source}}}/voxxlr/editor/va-link.js"></script>
+    <script src="{{{app_source}}}/voxxlr/editor/va-import.js"></script>
      
     <script>
-    
+       
         document.addEventListener('contextmenu', event => event.preventDefault());
         
         window.addEventListener("load", async function(event) 
@@ -59,7 +63,7 @@
             // 
             // Header
             //
-            
+ 
             let header = document.querySelector("vx-header");
             header.attach(viewer)
             header.addEventListener("header-inventory", event =>
@@ -76,7 +80,7 @@
                 await document.querySelector("vx-list").save(patch);
                 await document.querySelector("vx-tab").save(patch);
 
-                fetch('{{{domain}}}/meta', 
+                fetch(`${window.doc_domain}/meta`, 
                 { 
                     method: 'PATCH', 
                     headers: new Headers({
@@ -344,7 +348,7 @@
 
 <body>
      
-    <vx-header save></vx-header>
+    <vx-header save launch></vx-header>
     <main>
         <aside id="left" class="close">
             <ui-toggle left closed></ui-toggle>
@@ -382,7 +386,7 @@
                 </div>
             </ui-stack>
         </aside>
-        <vx-viewer meta="viewpoints,polygon,line,point,import,name" domain="{{{domain}}}">
+        <vx-viewer meta="viewpoints,polygon,line,point,import,name">
             <div>
                 <vx-tab comments editable></vx-tab><button name="save" class="vx-app vx-secondary" hidden><i class="fas fa-save"></i><span>Save</span></button>
             </div>

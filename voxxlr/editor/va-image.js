@@ -9,7 +9,7 @@ class VaImage extends HTMLElement
         this.dom.innerHTML = `
 
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
         
             <style>
             
@@ -129,7 +129,7 @@ class VaImage extends HTMLElement
             }));
             bullet.remove();
             
-            fetch(`https://doc.voxxlr.com/file/${this.id}/${bullet.file.path}`, 
+            fetch(`${window.doc_domain}/file/${this.id}/${bullet.file.path}`, 
             { 
                 method: 'DELETE', 
                 headers: new Headers({
@@ -162,7 +162,7 @@ class VaImage extends HTMLElement
         })		
         this.upload.addEventListener('item-done', async (event) =>
         {
-            fetch(`https://doc.voxxlr.com/file/${event.detail}`, 
+            fetch(`${window.doc_domain}/file/${event.detail}`, 
             { 
                 method: 'GET', 
                 headers: new Headers({
@@ -232,7 +232,7 @@ class VaImage extends HTMLElement
             {
                 if (!this.bullets.firstElementChild)
                 {
-                    await fetch(`https://doc.voxxlr.com/file/${this.id}/`, 
+                    await fetch(`${window.doc_domain}/file/${this.id}/`, 
                     { 
                         method: 'GET', 
                         headers: new Headers({
@@ -286,7 +286,7 @@ class VaImage extends HTMLElement
                 return;	
             }
             
-            fetch(`https://doc.voxxlr.com/file/${this.id}`, 
+            fetch(`${window.doc_domain}/file/${this.id}`, 
             { 
                 method: 'DELETE', 
                 headers: new Headers({

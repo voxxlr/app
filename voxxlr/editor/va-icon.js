@@ -15,7 +15,7 @@ class VaIcon extends HTMLElement
         this.dom.innerHTML = `
 
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
         
             <style>
             
@@ -37,13 +37,13 @@ class VaIcon extends HTMLElement
             </style>
                 
             <ui-button-group single>
-                <button id="info" class="vx-secondary" active><img src="https://voxxlr.github.io/app/voxxlr/editor/images/info.webp"></button>
-                <button id="question" class="vx-secondary"><img src="https://voxxlr.github.io/app/voxxlr/editor/images/question.webp"></button>
-                <button id="warn" class="vx-secondary"><img src="https://voxxlr.github.io/app/voxxlr/editor/images/warn.webp"></button>
-                <button id="alarm" class="vx-secondary"><img src="https://voxxlr.github.io/app/voxxlr/editor/images/alarm.webp"></button>
-                <button id="link" class="vx-secondary"><img src="https://voxxlr.github.io/app/voxxlr/editor/images/link.webp"></button>
-                <button id="window" class="vx-secondary"><img src="https://voxxlr.github.io/app/voxxlr/editor/images/window.webp"></button>
-                <button id="photo" class="vx-secondary"><img src="https://voxxlr.github.io/app/voxxlr/editor/images/photo.webp"></button>
+                <button id="info" class="vx-secondary" active><img src="${window.app_source}/voxxlr/editor/images/info.webp"></button>
+                <button id="question" class="vx-secondary"><img src="${window.app_source}/voxxlr/editor/images/question.webp"></button>
+                <button id="warn" class="vx-secondary"><img src="${window.app_source}/voxxlr/editor/images/warn.webp"></button>
+                <button id="alarm" class="vx-secondary"><img src="${window.app_source}/voxxlr/editor/images/alarm.webp"></button>
+                <button id="link" class="vx-secondary"><img src="${window.app_source}/voxxlr/editor/images/link.webp"></button>
+                <button id="window" class="vx-secondary"><img src="${window.app_source}/voxxlr/editor/images/window.webp"></button>
+                <button id="photo" class="vx-secondary"><img src="${window.app_source}/voxxlr/editor/images/photo.webp"></button>
             </ui-button-group>
 
             `;			
@@ -65,13 +65,13 @@ class VaIcon extends HTMLElement
     
     static ICON = 
     {
-        info: "https://voxxlr.github.io/app/voxxlr/editor/images/info.webp",
-        question: "https://voxxlr.github.io/app/voxxlr/editor/images/question.webp",
-        warn: "https://voxxlr.github.io/app/voxxlr/editor/images/warn.webp",
-        alarm: "https://voxxlr.github.io/app/voxxlr/editor/images/alarm.webp",
-        link: "https://voxxlr.github.io/app/voxxlr/editor/images/link.webp",
-        window: "https://voxxlr.github.io/app/voxxlr/editor/images/window.webp",
-        photo: "https://voxxlr.github.io/app/voxxlr/editor/images/photo.webp",
+        info: `${window.app_source}/voxxlr/editor/images/info.webp`,
+        question: `${window.app_source}/voxxlr/editor/images/question.webp`,
+        warn: `${window.app_source}/voxxlr/editor/images/warn.webp`,
+        alarm: `${window.app_source}/voxxlr/editor/images/alarm.webp`,
+        link: `${window.app_source}/voxxlr/editor/images/link.webp`,
+        window: `${window.app_source}/voxxlr/editor/images/window.webp`,
+        photo: `${window.app_source}/voxxlr/editor/images/photo.webp`,
     }
     
     static getImage(name)

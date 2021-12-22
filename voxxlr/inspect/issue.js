@@ -14,7 +14,7 @@ class Issue extends HTMLElement
         this.dom.innerHTML = `
     
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="{{{app_source}}}/ui.css">
 
             <style>
             
@@ -142,7 +142,7 @@ class Issue extends HTMLElement
             case 4: i.setAttribute("class",`fas severe`); break;
         }
         console.log("patching issue to " + this.record.status)
-        fetch(`https://doc.voxxlr.com/meta/issues/${this.id}`, 
+        fetch(`${window.doc_domain}/meta/issues/${this.id}`, 
         { 
             method: 'PATCH', 
             headers: new Headers({
@@ -177,7 +177,7 @@ class IssueList extends HTMLElement
         this.dom.innerHTML = `
     
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="{{{app_source}}}/ui.css">
 
             <style>
             
@@ -247,13 +247,13 @@ class IssueList extends HTMLElement
             
             this.dispatchEvent(new CustomEvent("issue-changed", { detail: selected, bubbles: true }));
             
-            fetch(`https://doc.voxxlr.com/meta/issues/${selected.id}`, 
+            fetch(`${window.doc_domain}/meta/issues/${selected.id}`, 
             { 
                 method: 'DELETE', 
                 headers: new Headers({ 'Authorization': `Bearer ${this.getAttribute("token")}` })
             })
             
-            fetch(`https://doc.voxxlr.com/file/issues/${selected.id}.jpg`, 
+            fetch(`${window.doc_domain}/file/issues/${selected.id}.jpg`, 
             { 
                 method: 'DELETE', 
                 headers: new Headers({ 'Authorization': `Bearer ${this.getAttribute("token")}` })
@@ -274,7 +274,7 @@ class IssueList extends HTMLElement
         {
             this.list.clear();
             
-            fetch(`https://doc.voxxlr.com/meta/issues`, 
+            fetch(`${window.doc_domain}/meta/issues`, 
             { 
                 headers: new Headers({ 'Authorization': `Bearer ${newValue}` })
             }).then(async (response) =>
@@ -318,7 +318,7 @@ class IssueList extends HTMLElement
             this.list.firstElementChild.remove();
         }
         
-        fetch(`https://doc.voxxlr.com/meta/issues`, 
+        fetch(`${window.doc_domain}/meta/issues`, 
         { 
             method: 'DELETE', 
             headers: new Headers({
@@ -354,7 +354,7 @@ class IssueForm extends HTMLElement
         this.dom.innerHTML = `
     
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="{{{app_source}}}/ui.css">
 
             <style>
             
@@ -478,7 +478,7 @@ class IssueForm extends HTMLElement
             let file = new File([blob], `${id}.jpg`);
 
             // upload image
-            await fetch(`https://doc.voxxlr.com/file/issues/${id}.jpg`, 
+            await fetch(`${window.doc_domain}/file/issues/${id}.jpg`, 
             { 
                 method: 'POST', 
                 headers: new Headers({
@@ -528,7 +528,7 @@ class IssueForm extends HTMLElement
             
             Object.assign(issue, JSON.parse(this.getAttribute("config")));
 
-            await fetch(`https://doc.voxxlr.com/meta/issues/${id}`, 
+            await fetch(`${window.doc_domain}/meta/issues/${id}`, 
             { 
                 method: 'PATCH', 
                 headers: new Headers({

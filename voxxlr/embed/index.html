@@ -3,6 +3,7 @@
 <head>
 
     <link rel="canonical" href="https://www.voxxlr.com/index.html">
+    <link rel="shortcut icon" href="{{{app_source}}}/voxxlr/favicon.ico" />
     
     {{#og}}
     <title>{{title}}</title>
@@ -15,18 +16,23 @@
     <meta property="og:description" content="{{description}}" />    
     <meta property="og:site_name" content="Voxxlr" />
     <meta property="og:url" content="{{{url}}}" />
-   {{/og}}
+    {{/og}}
 
-    <link rel="shortcut icon" href="https://voxxlr.github.io/www/favicon.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <script>
+        window.doc_domain = "{{{doc_domain}}}";
+        window.app_endpoint = "{{{app_endpoint}}}";
+        window.app_source = "{{{app_source}}}";
+    </script>
 
     {{#launchpad}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
-    <script src="https://voxxlr.github.io/app/ui.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-inventory.js"></script>
+    <link rel="stylesheet" href="{{{app_source}}}/ui.css">
+    <script src="{{{app_source}}}/ui.js"></script>
+    <script src="{{{app_source}}}/vx-inventory.js"></script>
     {{/launchpad}}
     
-    <script src="https://voxxlr.github.io/app/vx-viewer.js"></script>
+    <script src="{{{app_source}}}/vx-viewer.js"></script>
      
     <script>
     

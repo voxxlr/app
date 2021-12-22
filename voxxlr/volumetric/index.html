@@ -3,6 +3,7 @@
 <head>
 
     <link rel="canonical" href="https://www.voxxlr.com/index.html">
+    <link rel="shortcut icon" href="{{{app_source}}}/voxxlr/favicon.ico" />
 
     {{#og}}
     <title>{{title}}</title>
@@ -18,32 +19,36 @@
     <meta name="p:domain_verify" content="b74e5f0ef51645428e8654a5527f79f2"/>   
     {{/og}}
 
-    <link rel="shortcut icon" href="https://voxxlr.github.io/www/favicon.ico" />
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <script>
+        window.doc_domain = "{{{doc_domain}}}";
+        window.app_endpoint = "{{{app_endpoint}}}";
+        window.app_source = "{{{app_source}}}";
+    </script>
 
     <!-- ui only component -->
-    <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css" crossorigin="anonymous">
-    <script src="https://voxxlr.github.io/app/ui.js"></script>
+    <link rel="stylesheet" href="{{{app_source}}}/ui.css" crossorigin="anonymous">
+    <script src="{{{app_source}}}/ui.js"></script>
     
     <!-- voxxlr component -->
-    <script src="https://voxxlr.github.io/app/vx-viewer.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-inventory.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-header.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-listing.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-list.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-tab.js"></script>
+    <script src="{{{app_source}}}/vx-viewer.js"></script>
+    <script src="{{{app_source}}}/vx-inventory.js"></script>
+    <script src="{{{app_source}}}/vx-header.js"></script>
+    <script src="{{{app_source}}}/vx-listing.js"></script>
+    <script src="{{{app_source}}}/vx-list.js"></script>
+    <script src="{{{app_source}}}/vx-tab.js"></script>
  
-    <script src="https://voxxlr.github.io/app/voxxlr/volumetric/va-profile.js"></script>
-    <script src="https://voxxlr.github.io/app/voxxlr/volumetric/va-polygon.js"></script>
-    <script src="https://voxxlr.github.io/app/voxxlr/volumetric/va-floodfill.js"></script>
-    <script src="https://voxxlr.github.io/app/voxxlr/volumetric/va-line.js"></script>
+    <script src="{{{app_source}}}/voxxlr/volumetric/va-profile.js"></script>
+    <script src="{{{app_source}}}/voxxlr/volumetric/va-polygon.js"></script>
+    <script src="{{{app_source}}}/voxxlr/volumetric/va-floodfill.js"></script>
+    <script src="{{{app_source}}}/voxxlr/volumetric/va-line.js"></script>
        
     <style>
     </style>  
      
     <script>
-    
+
         document.addEventListener('contextmenu', event => event.preventDefault());
         
         window.addEventListener("load", async function(event) 
@@ -125,7 +130,7 @@
                 await document.querySelector("vx-list").save(patch);
                 await document.querySelector("vx-tab").save(patch);
 
-                fetch('https://doc.voxxlr.com/meta', 
+                fetch(`${window.doc_domain}/meta`, 
                 { 
                     method: 'PATCH', 
                     headers: new Headers({
@@ -175,7 +180,7 @@
                     mode.toggleAttribute("compare", true);
                     layers.querySelector("ui-checkbox").toggleAttribute("checked", true);
                     
-                    fetch('https://doc.voxxlr.com/load', 
+                    fetch(`${window.doc_domain}/load`, 
                     { 
                         method: 'POST', 
                         headers: new Headers({

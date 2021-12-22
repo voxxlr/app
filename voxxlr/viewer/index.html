@@ -3,6 +3,7 @@
 <head>
 
     <link rel="canonical" href="https://www.voxxlr.com/index.html">
+    <link rel="shortcut icon" href="{{{app_source}}}/voxxlr/favicon.ico" />
     
     {{#og}}
     <title>{{title}}</title>
@@ -18,20 +19,24 @@
     <meta name="p:domain_verify" content="b74e5f0ef51645428e8654a5527f79f2"/>   
     {{/og}}
     
-    <link rel="shortcut icon" href="https://voxxlr.github.io/www/favicon.ico" />
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <script>
+        window.doc_domain = "{{{doc_domain}}}";
+        window.app_endpoint = "{{{app_endpoint}}}";
+        window.app_source = "{{{app_source}}}";
+    </script>
  
-    <script src="https://voxxlr.github.io/app/ui.js"></script>
+    <script src="{{{app_source}}}/ui.js"></script>
 
     {{#launchpad}}
-    <script src="https://voxxlr.github.io/app/vx-inventory.js"></script>
+    <script src="{{{app_source}}}/vx-inventory.js"></script>
     {{/launchpad}}
  
-    <script src="https://voxxlr.github.io/app/vx-viewer.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-sticky.js"></script>
+    <script src="{{{app_source}}}/vx-viewer.js"></script>
+    <script src="{{{app_source}}}/vx-sticky.js"></script>
 
-    <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+    <link rel="stylesheet" href="{{{app_source}}}/ui.css">
 
     <script>
     
@@ -68,7 +73,7 @@
                         
                     case "image":
                             
-                        fetch(`https://doc.voxxlr.com/file/${event.id}/`, 
+                        fetch(`${window.doc_domain}/file/${event.id}/`, 
                         { 
                             method: 'GET', 
                             headers: new Headers({
@@ -182,7 +187,7 @@
                 
                 for (var id in args.meta.import || {})
                 {
-                    await fetch(`https://app.voxxlr.com/load/${args.meta.import[id].document}`, 
+                    await fetch(`${window.app_endpoint}/load/${args.meta.import[id].document}`, 
                     { 
                         method: 'POST', 
                         headers: new Headers({
@@ -231,11 +236,11 @@
                 let img = aside.querySelector("img");
                 if (aside.classList.contains("closed"))
                 {
-                    img.src = "https://voxxlr.github.io/app/voxxlr/viewer/images/close.webp";
+                    img.src = "{{{app_source}}}/voxxlr/viewer/images/close.webp";
                 }
                 else
                 {
-                    img.src = "https://voxxlr.github.io/app/voxxlr/viewer/images/open.webp";
+                    img.src = "{{{app_source}}}/voxxlr/viewer/images/open.webp";
                 }
         
                 aside.classList.toggle("closed");
@@ -396,10 +401,10 @@
 <body>
 
     <aside class="closed">
-        <a class="open"><img src="https://voxxlr.github.io/app/voxxlr/viewer/images/open.webp"></a>
+        <a class="open"><img src="{{{app_source}}}/voxxlr/viewer/images/open.webp"></a>
         <a href="https://www.voxxlr.com">
             <div class="powered">powered by www.voxxlr.com</div>
-            <img class="logo" src="https://voxxlr.github.io/app/voxxlr/viewer/images/logo150.webp">
+            <img class="logo" src="{{{app_source}}}/voxxlr/viewer/images/logo150.webp">
         </a>
         <h2>{{{name}}}</h2>
         <p>{{{description}}}</p>

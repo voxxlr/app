@@ -3,7 +3,7 @@
 <head>
 
     <link rel="canonical" href="https://www.voxxlr.com/index.html">
-    <link rel="shortcut icon" href="https://voxxlr.github.io/www/favicon.ico" />
+    <link rel="shortcut icon" href="{{{app_source}}}/voxxlr/favicon.ico" />
     
     {{#og}}
     <title>{{title}}</title>
@@ -20,16 +20,22 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
+    <script>
+        window.doc_domain = "{{{doc_domain}}}";
+        window.app_endpoint = "{{{app_endpoint}}}";
+        window.app_source = "{{{app_source}}}";
+    </script>
+
     <!-- Voxxlr UI components -->    
-    <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
-    <script src="https://voxxlr.github.io/app/ui.js"></script>
+    <link rel="stylesheet" href="{{{app_source}}}/ui.css">
+    <script src="{{{app_source}}}/ui.js"></script>
     
     <!-- Voxxlr App components -->    
-    <script src="https://voxxlr.github.io/app/vx-viewer.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-hierarchy.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-inventory.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-header.js"></script>
-    <script src="https://voxxlr.github.io/app/vx-tab.js"></script>
+    <script src="{{{app_source}}}/vx-viewer.js"></script>
+    <script src="{{{app_source}}}/vx-hierarchy.js"></script>
+    <script src="{{{app_source}}}/vx-inventory.js"></script>
+    <script src="{{{app_source}}}/vx-header.js"></script>
+    <script src="{{{app_source}}}/vx-tab.js"></script>
          
     <script>
     
@@ -58,7 +64,7 @@
                 
                 await document.querySelector("vx-tab").save(patch);
 
-                fetch('https://doc.voxxlr.com/meta', 
+                fetch(`${window.doc_domain}/meta`, 
                 { 
                     method: 'PATCH', 
                     headers: new Headers({

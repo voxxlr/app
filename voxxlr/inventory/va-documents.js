@@ -13,7 +13,7 @@ class VaDocuments extends HTMLElement
         
         this.dom.innerHTML = `
 
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
             <style>
             
@@ -201,7 +201,7 @@ class VaDocuments extends HTMLElement
         }
         image.onerror = function()
         { 
-            this.src="https://voxxlr.github.io/app/voxxlr/inventory/images/camera.webp";
+            this.src=`${window.app_source}/voxxlr/inventory/images/camera.webp`;
         }
         div.appendChild(image);
         
@@ -225,14 +225,13 @@ class VaDocuments extends HTMLElement
         { 
             this.loading = true;
             //this.dom.querySelector("#search").toggleAttribute("disabled", true);
-            
-            fetch('https://app.voxxlr.com/list', 
+            console.log(window.doc_domain)
+            fetch(`${window.doc_domain}/list`, 
             { 
                 method: 'POST', 
                 headers: new Headers({
                  'Authorization': `Bearer ${this.getAttribute("key")}`, 
                  'Content-Type': "application/json",
-                 'Content-Encoding': 'gzip'
                 }),
                 body: JSON.stringify({ token: 3600, type: this.type, tags: this.tags, limit: this.limit, cursor: this.cursor, meta: ["preview", "name", "description"] })
             }).then(async (response) => 

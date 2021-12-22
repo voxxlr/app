@@ -13,7 +13,7 @@ class View2D extends HTMLElement
         this.dom.innerHTML = `
     
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <link rel="stylesheet" href="https://voxxlr.github.io/app/ui.css">
+            <link rel="stylesheet" href="${window.app_source}/ui.css">
 
             <style>
             
@@ -151,7 +151,7 @@ class View2D extends HTMLElement
         
     connectedCallback() 
     {
-        this.viewer.iframe.src = "https://doc.voxxlr.com/viewer/2D.html";
+        this.viewer.iframe.src = `${window.doc_domain}/viewer/2D.html`;
     }
     
     attributeChangedCallback(name, oldValue, newValue)
@@ -228,7 +228,7 @@ class View2D extends HTMLElement
         
             this.dom.querySelector("ui-modal").hidden = false;				
             
-            fetch('https://doc.voxxlr.com/file/'+name, 
+            fetch(`${window.doc_domain}/file/`+name, 
             { 
                 method: 'GET', 
                 headers: new Headers({
