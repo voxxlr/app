@@ -89,24 +89,23 @@ class VxFilter extends HTMLElement
                     <div class="slider"><span>Point Size</span><ui-slider id="pointsize" horz></ui-slider></div>
                     <div class="slider"><span>Point Budget</span><ui-slider id="buffercount" horz></ui-slider></div>
                 </ui-panel>
-        
                 <ui-panel id="grid" name="Classes">
-                    <div><ui-checkbox type="checkbox" id="0"></ui-checkbox><div class="color"></div></div>
-                    <div><ui-checkbox type="checkbox" id="1"></ui-checkbox><div class="color"></div></div>
-                    <div><ui-checkbox type="checkbox" id="2"></ui-checkbox><div class="color"></div></div>
-                    <div><ui-checkbox type="checkbox" id="3"></ui-checkbox><div class="color"></div></div>
-                    <div><ui-checkbox type="checkbox" id="4"></ui-checkbox><div class="color"></div></div>
-                    <div><ui-checkbox type="checkbox" id="5"></ui-checkbox><div class="color"></div></div>
-                    <div><ui-checkbox type="checkbox" id="6"></ui-checkbox><div class="color"></div></div>
-                    <div><ui-checkbox type="checkbox" id="7"></ui-checkbox><div class="color"></div></div>
-                    <div><ui-checkbox type="checkbox" id="8"></ui-checkbox><div class="color"></div></div>
-                    <div><ui-checkbox type="checkbox" id="9"></ui-checkbox><div class="color"></div></div>
-                    <div><ui-checkbox type="checkbox" id="10"></ui-checkbox><div class="color"></div></div>
-                    <div><ui-checkbox type="checkbox" id="11"></ui-checkbox><div class="color"></div></div>
-                    <div><ui-checkbox type="checkbox" id="12"></ui-checkbox><div class="color"></div></div>
-                    <div><ui-checkbox type="checkbox" id="13"></ui-checkbox><div class="color"></div></div>
-                    <div><ui-checkbox type="checkbox" id="14"></ui-checkbox><div class="color"></div></div>
-                    <div><ui-checkbox type="checkbox" id="15"></ui-checkbox><div class="color"></div></div>
+                    <div><ui-checkbox type="checkbox" id="0"></ui-checkbox><div class="color" style="background: rgb(0,0,255)"></div></div>
+                    <div><ui-checkbox type="checkbox" id="1"></ui-checkbox><div class="color" style="background: rgb(0,255,0)"></div></div>
+                    <div><ui-checkbox type="checkbox" id="2"></ui-checkbox><div class="color" style="background: rgb(158,127,109)"></div></div>
+                    <div><ui-checkbox type="checkbox" id="3"></ui-checkbox><div class="color" style="background: rgb(79,119,63)"></div></div>
+                    <div><ui-checkbox type="checkbox" id="4"></ui-checkbox><div class="color" style="background: rgb(33,137,33)"></div></div>
+                    <div><ui-checkbox type="checkbox" id="5"></ui-checkbox><div class="color" style="background: rgb(206,239,191)"></div></div>
+                    <div><ui-checkbox type="checkbox" id="6"></ui-checkbox><div class="color" style="background: rgb(137,0,25)"></div></div>
+                    <div><ui-checkbox type="checkbox" id="7"></ui-checkbox><div class="color" style="background: rgb(137,137,137)"></div></div>
+                    <div><ui-checkbox type="checkbox" id="8"></ui-checkbox><div class="color" style="background: rgb(137,137,137)"></div></div>
+                    <div><ui-checkbox type="checkbox" id="9"></ui-checkbox><div class="color" style="background: rgb(63,163,221)"></div></div>
+                    <div><ui-checkbox type="checkbox" id="10"></ui-checkbox><div class="color" style="background: rgb(97,97,97)"></div></div>
+                    <div><ui-checkbox type="checkbox" id="11"></ui-checkbox><div class="color" style="background: rgb(137,137,137)"></div></div>
+                    <div><ui-checkbox type="checkbox" id="12"></ui-checkbox><div class="color" style="background: rgb(137,137,137)"></div></div>
+                    <div><ui-checkbox type="checkbox" id="13"></ui-checkbox><div class="color" style="background: rgb(137,137,137)"></div></div>
+                    <div><ui-checkbox type="checkbox" id="14"></ui-checkbox><div class="color" style="background: rgb(137,137,137)"></div></div>
+                    <div><ui-checkbox type="checkbox" id="15"></ui-checkbox><div class="color" style="background: rgb(137,137,137)"></div></div>
                 </ui-panel>
             `;
             
@@ -214,26 +213,11 @@ class VxFilter extends HTMLElement
                 let grid = this.dom.getElementById("grid")
                 if (attributes["class"])
                 {
-                    /*
-                    let classes = attributes.class.colors;
-                    
-                    let list = grid.querySelectorAll(".color");
-                    for (var i=0; i<list.length; i++)
+                    grid.querySelectorAll(".color").forEach(clazz =>
                     {
-                        if (classes.length > i*3)
-                        {
-                            list[i].style.background = 'rgb(' + classes[i*3+0] + ',' + classes[i*3+1] + ',' + classes[i*3+2] + ')';
-                            list[i].previousSibling.disabled = false;
-                            list[i].previousSibling.toggleAttribute("checked",true);
-                        }
-                        else
-                        {
-                            list[i].style.background = 'rgb(255,255,255)';
-                            list[i].previousSibling.disabled = true;
-                            list[i].previousSibling.toggleAttribute("checked",false);
-                        }
-                    };
-                    */
+                        clazz.previousSibling.disabled = false;
+                        clazz.previousSibling.toggleAttribute("checked",true);
+                    });
                     grid.hidden = false;
                 }
                 else
