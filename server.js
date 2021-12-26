@@ -2,8 +2,18 @@ const fs = require('fs');
 const mustache = require("mustache");
 const express = require('express')
 
-const hostname = '127.0.0.1';
-//const hostname = '0.0.0.0';
+
+var args = process.argv.slice(2);
+
+if (args.length > 0)
+{
+    host = args[0]
+}
+else
+{
+    host = '127.0.0.1';
+}
+
 const port = 4000;
 const app = express()
 
@@ -42,15 +52,7 @@ app.get('/launchpad.html', (req, res, next) =>
 
 app.use(express.static('.'))
 
-app.listen(port, hostname, () => 
+app.listen(port, host, () => 
 {
-    console.log(`---- app server running at http://${hostname}:${port}/launchpad.html --- `);
+    console.log(`---- app server running at http://${host}:${port}/launchpad.html --- `);
 });
-
-// read command line
-var args = process.argv.slice(2);
-
-if (args.length > 0)
-{
-   
-}

@@ -277,13 +277,11 @@ class VxFilter extends HTMLElement
                                 
                                 if (classes.length > i*4)
                                 {
-                                    list[i].style.background = 'rgb(' + classes[i*4+0]*255 + ',' + classes[i*4+1]*255 + ',' + classes[i*4+2]*255 + ')';
-                                    list[i].previousSibling.disabled = false;
+                                     list[i].previousSibling.disabled = false;
                                 }
                                 else
                                 {
-                                    list[i].style.background = 'rgb(255,255,255)';
-                                    list[i].previousSibling.disabled = true;
+                                     list[i].previousSibling.disabled = true;
                                 }
                             }
                         }
