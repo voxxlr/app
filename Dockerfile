@@ -9,5 +9,4 @@ RUN npm install
 
 EXPOSE 4000
 
-#CMD ["node","server.js","/root/data"]
 CMD ["/bin/sh", "-c", "node server.js 0.0.0.0 > server.log"]
