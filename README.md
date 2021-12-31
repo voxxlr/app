@@ -1,11 +1,9 @@
 # Voxxlr App SDK
-This repository contains the App infrastructure of the [Voxxlr](https://www.voxxlr.com) cloud platform for geospatial content. All files in this repository 
-are hosted at voxxlr.github.io/app and the REST Api is hosted and documented at [https://app.voxxlr.com/rest.html](https://app.voxxlr.com/rest.html). This repo contains
-a small web server in server.js to run a demo locally, but it does not fully implement the required REST Api. 
+This repository contains the App infrastructure of the [Voxxlr](https://www.voxxlr.com) cloud platform for geospatial content. A small web server in __server.js__ runs a demo locally, but it does not fully implement the required REST Api. 
 
 ## Installation
 
-After cloning this repo there are two ways to run the _app_ server using either docker or nodejs. In either case, the [_doc_](https://github.com/voxxlr/doc) server must be running as well in order to load Apps. Once the the _app_ server is running, point the browser to http://127.0.0.1/launchpad.html to access Apps and datasets.
+There are two ways to run the _app_ server using either docker or nodejs. In either case, the [_doc_ server](https://github.com/voxxlr/doc) must be running as well in order to load datasets. Once the the _app_ server is running, point the browser to http://127.0.0.1/launchpad.html.
 
 #### Nodejs
 
