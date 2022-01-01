@@ -76,6 +76,7 @@ class VxCamera extends HTMLElement
                 </div>
                 <div hidden>
                     <div class="column">
+                        <button id="axes" class="vx-app vx-secondary" active><i class="fas fa-2x fa-grip-lines"></i></button>
                     </div>
                     <div class="column">
                         <button id="cube" class="vx-app vx-secondary" active><i class="fas fa-2x fa-cube"></i></button>
@@ -119,6 +120,7 @@ class VxCamera extends HTMLElement
 
         this.dom.getElementById("target").addEventListener("click", event=>  this.viewer.post("target", { visible: event.currentTarget.toggleAttribute("active") }));
         this.dom.getElementById("cube").addEventListener("click", event=>  this.viewer.post("navcube", { visible: event.currentTarget.toggleAttribute("active") }));
+        this.dom.getElementById("axes").addEventListener("click", event=>  this.viewer.post("axes", { visible: event.currentTarget.toggleAttribute("active") }));
     }
     
     attach(viewer)
@@ -195,6 +197,8 @@ class VxCamera extends HTMLElement
                         {
                             this.viewer.post("controller.target", event.xyz);
                         }
+
+                        this.viewer.post("axes", { origin: event.xyz });
                     }
                 }, this)
         

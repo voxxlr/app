@@ -90,6 +90,8 @@ class VxHeader extends HTMLElement
                 }
             }
         
+            this.dom.querySelector("span.address").textContent = "";
+            this.dom.querySelector(".fa-map-pin").hidden = true;
             this.dom.querySelector("span.name").textContent = args.meta.name;
             if (args.location)
             {
@@ -98,42 +100,40 @@ class VxHeader extends HTMLElement
                     if (response.ok)
                     {
                         let json = await response.json();
-                        let properties = json.features[0].properties;
-                        
-                        
-                        let text = "";
-                        
-                        if (properties.name) 
+                        if (json.features.length > 0)
                         {
-                            text = properties.name;
-                        } 
-                        else if (properties.housenumber) 
-                        {
-                            text = properties.housenumber;
-                            if (properties.street) 
+                            let properties = json.features[0].properties;
+                            
+                            
+                            let text = "";
+                            
+                            if (properties.name) 
                             {
-                                text += ' ' + properties.street;
+                                text = properties.name;
+                            } 
+                            else if (properties.housenumber) 
+                            {
+                                text = properties.housenumber;
+                                if (properties.street) 
+                                {
+                                    text += ' ' + properties.street;
+                                }
                             }
+                            
+                            if (properties.city && properties.city !== properties.name) 
+                            {
+                                //details.push(properties.city);
+                            }
+                            if (properties.country)
+                            {
+                                //details.push(properties.country);
+                            }
+                            
+                            this.dom.querySelector("span.address").textContent = text;
+                            this.dom.querySelector(".fa-map-pin").hidden = false;
                         }
-                        
-                        if (properties.city && properties.city !== properties.name) 
-                        {
-                            //details.push(properties.city);
-                        }
-                        if (properties.country)
-                        {
-                            //details.push(properties.country);
-                        }
-                        
-                        this.dom.querySelector("span.address").textContent = text;
-                        this.dom.querySelector(".fa-map-pin").hidden = false;
                     }
                 })
-            }
-            else
-            {
-                this.dom.querySelector("span.address").textContent = "";
-                this.dom.querySelector(".fa-map-pin").hidden = true;
             }
         })
     }
