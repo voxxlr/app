@@ -134,7 +134,8 @@ class VxCamera extends HTMLElement
                 this.viewer.post("navcube", { visible: false });
                 this.viewer.post("target", { visible: false });
                 this.viewer.post("controller", { name: "orbiter" });
-        
+                this.viewer.post("axes", { visible: true });
+
                 viewer.on("controller", (args)=>
                 {
                     if (args.name == "walker" || args.name == "flyer")
@@ -153,11 +154,20 @@ class VxCamera extends HTMLElement
                         this.inspect.hidden = false;			
                     }
                 }, this)
-                
+
+                viewer.on("axes", (args) =>
+                {
+                    if (args.hasOwnProperty("visible"))
+                    {
+                        let target = this.dom.getElementById("axes")
+                        target.toggleAttribute("active", args.visible);
+                    }
+                }, this)
+
                 
                 viewer.on("navcube", (args) =>
                 {
-                    if (typeof args.visible != "undefined")
+                    if (args.hasOwnProperty("visible"))
                     {
                         let navcube = this.dom.getElementById("cube");
                         navcube.toggleAttribute("active", args.visible);
@@ -166,7 +176,7 @@ class VxCamera extends HTMLElement
                 
                 viewer.on("target", (args) =>
                 {
-                    if (typeof args.visible != "undefined")
+                    if (args.hasOwnProperty("visible"))
                     {
                         let target = this.dom.getElementById("target")
                         target.toggleAttribute("active", args.visible);
